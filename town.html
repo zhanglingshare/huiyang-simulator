@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>惠阳产业风洞 · 各镇吃喝玩乐</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#e6edf3;font:14px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:5px;align-items:center;padding:9px 14px;background:rgba(8,11,18,.95);border-bottom:1px solid #1b2434;overflow-x:auto}
+.nav b{font-size:14px;margin-right:6px;flex:none}
+.nav a{background:#131c2b;color:#93a4bd;border:1px solid #22304a;padding:6px 12px;border-radius:20px;font-size:12.5px;text-decoration:none;white-space:nowrap;flex:none}
+.nav a.on{background:#ea580c;border-color:#f97316;color:#fff;font-weight:600}
+.wrap{max-width:960px;margin:auto;padding:16px}
+.scan{background:radial-gradient(ellipse at center,#28160a,#080b12);border:1px solid #3a2410;border-radius:14px;padding:18px;display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.radar{width:64px;height:64px;flex:none}
+.refresh{background:#f59e0b;color:#1a1206;border:0;padding:7px 18px;border-radius:18px;font-size:12.5px;font-weight:700;cursor:pointer}
+.refresh:active{transform:scale(.96)}
+.scan-info{font-size:11px;color:#8a7a63;margin-top:4px}
+h1{font-size:21px;margin:0}
+.sub{color:#c0a98f;font-size:13px;margin:4px 0 0}
+.livebar{background:#1a1206;border:1px solid #7c4a12;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12.5px;color:#fcd34d}
+.livebar b{color:#fbbf24}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:680px){.grid{grid-template-columns:1fr}}
+.town{background:#0e1523;border:1px solid #1c2739;border-radius:12px;padding:15px;position:relative;overflow:hidden}
+.town.pick{border-color:#f97316;box-shadow:0 0 0 1px #f97316 inset}
+.town .pick-tag{position:absolute;top:10px;right:10px;background:#f97316;color:#1a0d03;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px}
+.town .head{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.town .n{font-size:18px;font-weight:800}
+.town .tag{font-size:10.5px;color:#fdba74;background:#2a1506;border:1px solid #7c4a12;padding:2px 8px;border-radius:10px}
+.town .row{font-size:12.5px;color:#cbd5e1;margin-top:5px;line-height:1.7}
+.town .row .k{display:inline-block;width:34px;color:#9a8870}
+.town .why{margin-top:9px;padding-top:8px;border-top:1px dashed #1c2739;font-size:12px;color:#c0a98f;font-style:italic}
+.disc{font-size:11px;color:#8a7a63;margin-top:16px;line-height:1.8}
+.veg{margin-bottom:14px}
+.veg-title{font-size:13px;color:#fdba74;margin-bottom:8px;font-weight:700}
+.veg-track{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.veg-inner{display:flex;gap:10px;animation:vscroll 26s linear infinite;width:max-content}
+.veg-track:hover .veg-inner{animation-play-state:paused}
+.vegcard{flex:none;background:#0e1523;border:1px solid #7c4a12;border-left:3px solid #f97316;border-radius:10px;padding:10px 14px;width:196px}
+.vegcard .vn{font-size:14px;font-weight:700;color:#e6edf3}
+.vegcard .vp{font-size:11px;color:#fdba74;margin-top:2px}
+.vegcard .vd{font-size:11.5px;color:#c0a98f;margin-top:4px;line-height:1.5}
+@keyframes vscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.next{text-align:center;margin-top:18px}
+.next a{background:#ea580c;color:#fff;padding:11px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block}
+</style></head><body>
+
+<div class="nav">
+  <b>惠阳产业风洞</b>
+  <a href="index.html">① 今日话题</a>
+  <a href="town.html" class="on">🏘️ 各镇吃喝玩乐</a>
+  <a href="network.html">② 世界怎么长</a>
+  <a href="who.html">③ 基本面</a>
+  <a href="choices.html">④ 五条路</a>
+  <a href="future.html">⑤ 未来</a>
+  <a href="windtunnel.html">⑥ 风洞测试</a>
+  <a href="blindspot.html">⑦ 忽略了什么</a>
+  <a href="report.html">⑧ 分析报告</a>
+  <a href="ending.html">⑨ 结语</a>
+</div>
+
+<div class="wrap">
+  <div class="scan">
+    <svg class="radar" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="28" fill="none" stroke="#1c2739" stroke-width="1"/>
+      <circle cx="32" cy="32" r="18" fill="none" stroke="#1c2739" stroke-width="1"/>
+      <circle cx="32" cy="32" r="8" fill="none" stroke="#1c2739" stroke-width="1"/>
+      <g class="scanline" id="scanline" style="transform-origin:32px 32px"><line x1="32" y1="32" x2="32" y="4" stroke="#f97316" stroke-width="1.5"/></g>
+      <circle cx="32" cy="32" r="2.5" fill="#f97316"/>
+    </svg>
+    <div style="flex:1">
+      <h1>惠阳各镇，一口客家味、一路临深</h1>
+      <p class="sub">3 个街道、6 个镇，临深与近郊各有烟火气。点"换一换"，今天先去哪三个？</p>
+      <div class="scan-info" id="scanInfo">雷达待命…</div>
+    </div>
+    <button class="refresh" id="btnScan">🔄 换一换</button>
+  </div>
+
+  <div class="livebar" id="livebar">正在读今日惠阳各镇…</div>
+
+  <div class="veg">
+    <div class="veg-title" id="vegTitle">🍂 惠阳当季农品·客家味 · 此刻正上市（悬停暂停）</div>
+    <div class="veg-track"><div class="veg-inner" id="vegInner"></div></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="disc">
+    内容来自各镇街公开信息、本地媒体与官方文旅推介；镇街特色以实地为准。实时部分拉取微博/百度公开热搜，命中"惠州/惠阳/伯恩/吉他/叶挺/镇隆/燕子山温泉"等关键词才显示。本页是给本地人和游客的一张小地图，不是产业结论。
+  </div>
+
+  <div class="next"><a href="network.html">下一步：看惠阳在大湾区里的位置 →</a></div>
+</div>
+
+<script>
+let TOWNS=[],VEG=[],PULSE=[],UPDATED='',SRC='';
+
+let picks=[];
+
+function renderVeg(){
+  const levelColor={"高":"#f87171","较高":"#fbbf24","中":"#34d399"};
+  const cards=(VEG.length?VEG:[{n:"—",p:"",d:"",level:"中"}]).map(v=>{
+    const lc=levelColor[v.level]||"#34d399";
+    return `<div class="vegcard"><div class="vn">${v.n}</div><div class="vp">${v.p}</div><div class="vd">${v.d}</div><div style="font-size:11px;font-weight:800;color:${lc};border:1px solid ${lc};border-radius:7px;padding:2px 8px;margin-top:6px;display:inline-block">人气 · ${v.level}</div><div style="font-size:9px;color:#8a7a63;margin-top:3px">📎 公开渠道 · 近期打卡分档，非人数</div></div>`;
+  }).join("");
+  document.getElementById("vegInner").innerHTML=cards+cards;
+}
+function pickThree(){
+  const arr=[...TOWNS];
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  picks=arr.slice(0,3).map(t=>t.n);
+}
+
+function render(){
+  const levelColor={"高":"#f87171","较高":"#fbbf24","中":"#34d399"};
+  const g=document.getElementById("grid");
+  g.innerHTML=TOWNS.map(t=>{
+    const isPick=picks.includes(t.n);
+    const lc=levelColor[t.level]||"#34d399";
+    return `<div class="town${isPick?' pick':''}">
+      ${isPick?'<span class="pick-tag">✨ 今日推荐</span>':''}
+      <div class="head"><span class="n">${t.n}</span><span class="tag">${t.tag}</span></div>
+      <div class="row"><span class="k">🍜 吃</span>${t.foods.join("、")}</div>
+      <div class="row"><span class="k">🏔️ 玩</span>${t.plays.join("、")}</div>
+      <div class="why">→ ${t.why}</div>
+      <div style="margin-top:8px"><span style="font-size:11px;font-weight:800;color:${lc};border:1px solid ${lc};border-radius:8px;padding:3px 10px">人气 · ${t.level}</span></div>
+      <div style="font-size:9.5px;color:#8a7a63;margin-top:4px;line-height:1.4">📎 来源：${SRC}<br>近期公开打卡热度分档，非人数统计</div>
+    </div>`;
+  }).join("");
+}
+
+async function loadLife(){
+  try{
+    const r=await fetch("life.json?ts="+Date.now());const d=await r.json();
+    TOWNS=d.towns||[];VEG=d.veg||[];PULSE=d.pulse||[];UPDATED=d.updated||"";SRC=d.sourceLabel||"";
+    if(d.season)document.getElementById("vegTitle").textContent=`🍂 惠阳${d.season}季当季农品·客家味 · 按当月真实时令（悬停暂停）`;
+  }catch(e){}
+  renderVeg();pickThree();render();
+  document.getElementById("scanInfo").textContent=`数据每日自动刷新 · 上次更新 ${UPDATED} · 共${TOWNS.length}个镇街 · 人气档排序`;
+  document.getElementById("livebar").innerHTML=PULSE.length
+    ?"📡 最近大家在聊（公开渠道）："+PULSE.join("　｜　")
+    :"📡 惠阳的客家味与临深好去处，不用上热搜也值得去。";
+}
+
+function refresh(){
+  pickThree();render();
+}
+
+loadLife();
+document.getElementById("btnScan").onclick=refresh;
+</script>
+
+<div style="font-size:11px;color:#8a7a63;line-height:1.8;margin:16px 0;padding:12px;background:#0a0f1a;border-radius:8px">
+    📌 数据说明：
+  <br>① 镇街与农品：来自各镇街政府公开介绍、南方+/惠州日报报道，以及点评/小红书/抖音近期公开打卡热度，分为高/较高/中三档，非平台后台真实人数统计。
+  <br>② 当季农品：10月番石榴正甜、四季绿叶菜与晚稻新米上市、红薯秋收、秋花生饱果；永湖慈姑现处10月播种季、冬春才上市，荔枝、凤梨非当季不出现。
+  <br>③ 数据每日自动刷新；点"换一换"是本地随机推荐。
+</div>
+
+<div class="likebar">
+  <button onclick="likePage()">👍 <span id="pcount">0</span></button>
+  <button onclick="sharePage()">🔁 转给朋友</button>
+</div>
+<style>
+.likebar{position:relative;bottom:auto;transform:none;display:flex;justify-content:center;margin:20px 0;background:rgba(15,23,42,.96);border:1px solid #f97316;border-radius:24px;padding:9px 20px;gap:22px;z-index:999;box-shadow:0 6px 24px rgba(0,0,0,.6)}
+.likebar button{background:none;border:none;color:#e2e8f0;font-size:14px;cursor:pointer}
+.likebar button:active{transform:scale(1.15)}
+</style>
+<script>
+(function(){
+  var k="like_"+location.pathname;
+  var n=parseInt(localStorage.getItem(k)||"0");
+  document.getElementById("pcount").textContent=n;
+  window.likePage=function(){n++;localStorage.setItem(k,n);document.getElementById("pcount").textContent=n;};
+  window.sharePage=function(){
+    var m=document.getElementById("shareModal");
+    if(!m){
+      m=document.createElement("div");m.id="shareModal";
+      m.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+      m.onclick=function(){m.remove();};
+      m.innerHTML='<div style="background:#0f172a;padding:20px;border-radius:14px;text-align:center" onclick="event.stopPropagation()"><div style="color:#fff;font-size:14px;margin-bottom:12px">截图二维码，发给朋友/群</div><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(location.href)+'" style="width:200px;height:200;background:#fff;padding:8px;border-radius:8px"><div style="color:#94a3b8;font-size:12px;margin-top:12px">扫码打开</div></div>';
+      document.body.appendChild(m);
+    }
+    navigator.clipboard && navigator.clipboard.writeText(location.href);
+  };
+})();
+</script>
+</body></html>

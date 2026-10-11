@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>惠阳产业风洞 · 基本面</title>
+<script src="lib/echarts.min.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#e6edf3;font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:5px;align-items:center;padding:9px 14px;background:rgba(8,11,18,.95);border-bottom:1px solid #1b2434;overflow-x:auto}
+.nav b{font-size:14px;margin-right:6px;flex:none}
+.nav a{background:#131c2b;color:#93a4bd;border:1px solid #22304a;padding:6px 12px;border-radius:20px;font-size:12.5px;text-decoration:none;white-space:nowrap;flex:none}
+.nav a.on{background:#ea580c;border-color:#f97316;color:#fff;font-weight:600}
+.wrap{max-width:960px;margin:auto;padding:16px}
+h1{font-size:20px;margin:0 0 2px}
+.sub{color:#a08d75;font-size:13px;margin:0 0 16px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:#0e1523;border:1px solid #1c2739;border-radius:10px;padding:14px;text-align:center}
+.kpi .v{font-size:21px;font-weight:800;color:#fdba74;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:11px;color:#8a7a63;margin-top:2px}
+.kpi .d{font-size:10.5px;color:#fb923c;margin-top:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.card{background:#0e1523;border:1px solid #1c2739;border-radius:12px;padding:16px}
+.card h2{font-size:14px;margin:0 0 8px;color:#f0e6d8}
+.chart{width:100%;height:280px}
+.plain{background:#2a1506;border:1px solid #7c4a12;border-left:3px solid #f97316;border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.9;color:#f5e6d3;margin-top:10px}
+.plain .lab{display:block;font-size:10.5px;font-weight:800;color:#fdba74;letter-spacing:1px;margin-bottom:3px}
+.next{text-align:center;margin-top:18px}
+.next a{background:#ea580c;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block}
+</style></head><body>
+
+<div class="nav">
+  <b>惠阳产业风洞</b>
+  <a href="index.html">① 今日话题</a>
+  <a href="town.html">🏘️ 各镇吃喝玩乐</a>
+  <a href="network.html">② 世界怎么长</a>
+  <a href="who.html" class="on">③ 基本面</a>
+  <a href="choices.html">④ 五条路</a>
+  <a href="future.html">⑤ 未来</a>
+  <a href="windtunnel.html">⑥ 风洞测试</a>
+  <a href="blindspot.html">⑦ 忽略了什么</a>
+  <a href="report.html">⑧ 分析报告</a>
+  <a href="ending.html">⑨ 结语</a>
+</div>
+
+<div class="wrap">
+  <h1>惠阳现在长什么样</h1>
+  <p class="sub">数据来自2025统计公报、计划执行报告与区情公开资料。与深圳一路之隔的工业大区，到底是什么结构？</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">878.04亿</div><div class="l">GDP</div><div class="d">+3.3%</div></div>
+    <div class="kpi"><div class="v">2088.8亿</div><div class="l">规上工业总产值</div><div class="d">+4.1% · 增加值+7.2%</div></div>
+    <div class="kpi"><div class="v">破1200亿</div><div class="l">电子信息规模</div><div class="d">2026目标超1350亿</div></div>
+    <div class="kpi"><div class="v">95.98万</div><div class="l">常住人口</div><div class="d">临深城区</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>🥧 三次产业结构</h2>
+      <div id="c1" class="chart"></div>
+      <div class="plain" style="margin-top:8px"><span class="lab">人话</span>二产占约65%、是绝对支柱，三产约32%、一产约3%。和惠东（三产约53%）、惠城（三产约69%）正好相反——惠阳是“工业挑大梁”。</div>
+    </div>
+    <div class="card">
+      <h2>📊 三次产业与GDP增速</h2>
+      <div id="c2" class="chart"></div>
+      <div class="plain" style="margin-top:8px"><span class="lab">人话</span>一产+5.1%、二产+5.6%、三产-1.4%，GDP+3.3%。制造稳、服务业这一年在调整——这是“邻”的两面：制造强，本地消费与服务仍在培育。</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>🏭 工业的“含金量”</h2>
+      <div id="c3" class="chart"></div>
+      <div class="plain" style="margin-top:8px"><span class="lab">人话</span>工业不只大（总产值2088亿）而且“新”：先进制造、高技术占比超七成与近六成，技改+11.8%在提速。</div>
+    </div>
+    <div class="card">
+      <h2>📱 电子信息规模与目标</h2>
+      <div id="c4" class="chart"></div>
+      <div class="plain" style="margin-top:8px"><span class="lab">人话</span>电子信息是惠阳第一支柱，2025年规模破1200亿，2026年力争规上产值超1350亿。</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>🛏️ 国庆文旅：过夜增速领跑</h2>
+      <div id="c5" class="chart"></div>
+      <div class="plain" style="margin-top:8px"><span class="lab">人话</span>过夜游客增速（+21.9%）明显快于游客总量（+13.1%），惠阳正把“过路客”变成“过夜客”。</div>
+    </div>
+    <div class="card">
+      <h2>💰 消费与财力</h2>
+      <div id="c6" class="chart"></div>
+      <div class="plain" style="margin-top:8px"><span class="lab">人话</span>社消零约249.6亿、一般公共预算收入50.3亿、增长3.4%，城区消费与财力在稳步积累。</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h2>🎯 从878亿到1500亿，差多少</h2>
+    <div id="c7" class="chart" style="height:260px"></div>
+    <div class="plain">
+      <span class="lab">人话</span>2025年878亿，“十五五”力争1500亿。五年要增约71%、年均约11.3%，是2025年实际增速（3.3%）的三倍多。差距靠电子信息、AI机器人、汽车光学几条路填——有挑战，方向也清晰。
+    </div>
+  </div>
+
+  <div class="next"><a href="choices.html">下一步：五条路 →</a></div>
+</div>
+
+<script>
+const dark={text:'#a08d75',axis:'#3a2410'};
+const baseGrid={left:55,right:20,top:30,bottom:30};
+
+echarts.init(document.getElementById('c1')).setOption({
+  backgroundColor:'transparent',
+  tooltip:{trigger:'item',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'}},
+  legend:{bottom:0,textStyle:{color:dark.text,fontSize:11}},
+  series:[{type:'pie',radius:['40%','70%'],center:['50%','45%'],
+    data:[{value:29.40,name:'一产 3.3%',itemStyle:{color:'#84cc16'}},{value:570.43,name:'二产 65.0%',itemStyle:{color:'#ea580c'}},{value:278.21,name:'三产 31.7%',itemStyle:{color:'#38bdf8'}}],
+    label:{color:'#f0e6d8',fontSize:11,formatter:'{b}'}
+  }]
+});
+
+echarts.init(document.getElementById('c2')).setOption({
+  backgroundColor:'transparent',
+  tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:'{b}: {c}%'},
+  grid:baseGrid,
+  xAxis:{type:'category',data:['一产','二产','三产','GDP'],axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text}},
+  yAxis:{type:'value',axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text,formatter:'{value}%'},splitLine:{lineStyle:{color:'#241a08'}}},
+  series:[{type:'bar',data:[
+    {value:5.1,itemStyle:{color:'#84cc16'}},
+    {value:5.6,itemStyle:{color:'#ea580c'}},
+    {value:-1.4,itemStyle:{color:'#f87171'}},
+    {value:3.3,itemStyle:{color:'#fbbf24'}}
+  ],barWidth:34,label:{show:true,position:'top',color:'#f0e6d8',fontSize:11,formatter:'{c}%'}}]
+});
+
+echarts.init(document.getElementById('c3')).setOption({
+  backgroundColor:'transparent',
+  tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:'{b}: {c}%'},
+  grid:{left:120,right:40,top:20,bottom:30},
+  xAxis:{type:'value',axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text,formatter:'{value}%'},splitLine:{lineStyle:{color:'#241a08'}}},
+  yAxis:{type:'category',data:['规上工业增加值','工业技改','高技术制造占比','先进制造占比'],axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text,fontSize:10.5}},
+  series:[{type:'bar',data:[
+    {value:7.2,itemStyle:{color:'#c2410c'}},
+    {value:11.8,itemStyle:{color:'#ea580c'}},
+    {value:58.3,itemStyle:{color:'#f97316'}},
+    {value:71.2,itemStyle:{color:'#fb923c'}}
+  ],barWidth:16,label:{show:true,position:'right',color:'#fdba74',fontSize:11,formatter:'{c}%'}}]
+});
+
+echarts.init(document.getElementById('c4')).setOption({
+  backgroundColor:'transparent',
+  tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:'{b}: {c}亿'},
+  grid:baseGrid,
+  xAxis:{type:'category',data:['2025实际','2026目标'],axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text}},
+  yAxis:{type:'value',min:1000,axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text},splitLine:{lineStyle:{color:'#241a08'}}},
+  series:[{type:'bar',data:[
+    {value:1200,itemStyle:{color:'#f97316'}},
+    {value:1350,itemStyle:{color:'#fbbf24'}}
+  ],barWidth:46,label:{show:true,position:'top',color:'#fdba74',fontSize:12,formatter:'{c}亿'}}]
+});
+
+echarts.init(document.getElementById('c5')).setOption({
+  backgroundColor:'transparent',
+  tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:'{b}: +{c}%'},
+  grid:baseGrid,
+  xAxis:{type:'category',data:['游客总量','过夜游客','旅游收入'],axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text}},
+  yAxis:{type:'value',axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text,formatter:'{value}%'},splitLine:{lineStyle:{color:'#241a08'}}},
+  series:[{type:'bar',data:[
+    {value:13.1,itemStyle:{color:'#c2410c'}},
+    {value:21.9,itemStyle:{color:'#f97316'}},
+    {value:13.5,itemStyle:{color:'#ea580c'}}
+  ],barWidth:40,label:{show:true,position:'top',color:'#fdba74',fontSize:11,formatter:'+{c}%'}}]
+});
+
+echarts.init(document.getElementById('c6')).setOption({
+  backgroundColor:'transparent',
+  tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:'{b}: {c}亿'},
+  grid:baseGrid,
+  xAxis:{type:'category',data:['社消零','一般公共预算收入'],axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text,fontSize:10.5}},
+  yAxis:{type:'value',axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text},splitLine:{lineStyle:{color:'#241a08'}}},
+  series:[{type:'bar',data:[
+    {value:249.57,itemStyle:{color:'#ea580c'}},
+    {value:50.3,itemStyle:{color:'#fbbf24'}}
+  ],barWidth:42,label:{show:true,position:'top',color:'#fdba74',fontSize:11,formatter:'{c}亿'}}]
+});
+
+echarts.init(document.getElementById('c7')).setOption({
+  backgroundColor:'transparent',
+  tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'}},
+  legend:{top:0,textStyle:{color:dark.text,fontSize:10}},
+  grid:baseGrid,
+  xAxis:{type:'category',data:['2025','2026','2027','2028','2029','2030'],axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text}},
+  yAxis:{type:'value',min:800,axisLine:{lineStyle:{color:dark.axis}},axisLabel:{color:dark.text},splitLine:{lineStyle:{color:'#241a08'}}},
+  series:[
+    {name:'实际',type:'line',data:[878,null,null,null,null,null],lineStyle:{color:'#fb923c',width:3},itemStyle:{color:'#fb923c'},symbolSize:10},
+    {name:'力争目标(年均约11.3%)',type:'line',data:[878,977.3,1087.8,1210.8,1347.6,1500],lineStyle:{color:'#fbbf24',width:2,type:'dashed'},itemStyle:{color:'#fbbf24'}},
+    {name:'当前速度外推(3.3%)',type:'line',data:[878,907,936.9,967.9,999.8,1032.8],lineStyle:{color:'#f87171',width:2,type:'dotted'},itemStyle:{color:'#f87171'}}
+  ]
+});
+</script>
+
+<div class="likebar">
+  <button onclick="likePage()">👍 <span id="pcount">0</span></button>
+  <button onclick="sharePage()">🔁 转给朋友</button>
+</div>
+<style>
+.likebar{position:relative;bottom:auto;transform:none;display:flex;justify-content:center;margin:20px 0;background:rgba(15,23,42,.96);border:1px solid #f97316;border-radius:24px;padding:9px 20px;gap:22px;z-index:999;box-shadow:0 6px 24px rgba(0,0,0,.6)}
+.likebar button{background:none;border:none;color:#e2e8f0;font-size:14px;cursor:pointer}
+.likebar button:active{transform:scale(1.15)}
+</style>
+<script>
+(function(){
+  var k="like_"+location.pathname;
+  var n=parseInt(localStorage.getItem(k)||"0");
+  document.getElementById("pcount").textContent=n;
+  window.likePage=function(){n++;localStorage.setItem(k,n);document.getElementById("pcount").textContent=n;};
+  window.sharePage=function(){
+    var m=document.getElementById("shareModal");
+    if(!m){
+      m=document.createElement("div");m.id="shareModal";
+      m.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+      m.onclick=function(){m.remove();};
+      m.innerHTML='<div style="background:#0f172a;padding:20px;border-radius:14px;text-align:center" onclick="event.stopPropagation()"><div style="color:#fff;font-size:14px;margin-bottom:12px">截图二维码，发给朋友/群</div><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(location.href)+'" style="width:200px;height:200;background:#fff;padding:8px;border-radius:8px"><div style="color:#94a3b8;font-size:12px;margin-top:12px">扫码打开</div></div>';
+      document.body.appendChild(m);
+    }
+    navigator.clipboard && navigator.clipboard.writeText(location.href);
+  };
+})();
+</script>
+</body></html>

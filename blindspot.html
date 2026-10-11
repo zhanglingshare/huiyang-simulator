@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>惠阳被忽略的</title>
+<script src="lib/echarts.min.js"></script>
+<script src="model.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#e6edf3;font:14px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:5px;align-items:center;padding:9px 14px;background:rgba(8,11,18,.95);border-bottom:1px solid #1b2434;overflow-x:auto}
+.nav b{font-size:14px;margin-right:6px;flex:none}
+.nav a{background:#131c2b;color:#93a4bd;border:1px solid #22304a;padding:6px 12px;border-radius:20px;font-size:12.5px;text-decoration:none;white-space:nowrap;flex:none}
+.nav a.on{background:#ea580c;border-color:#f97316;color:#fff;font-weight:600}
+.wrap{max-width:680px;margin:auto;padding:16px}
+.card{background:#0e1523;border:1px solid #1c2739;border-radius:14px;padding:18px;margin-bottom:14px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:#cbb59a;font-size:13px}
+h2{font-size:16px;margin:0 0 6px}
+.finding{margin-bottom:18px}
+.finding .num{display:inline-block;background:#ea580c;color:#fff;border-radius:8px;padding:2px 10px;font-size:12px;font-weight:700;margin-bottom:6px}
+.finding .t{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.finding .d{font-size:13px;color:#c2cdda;line-height:1.95}
+.chart{width:100%;height:220px;margin-top:8px}
+.means{margin-top:7px;font-size:12px;color:#fed7aa;line-height:1.75}
+.vote{background:#131c2b;border-radius:10px;padding:14px;margin-top:8px}
+.vote button{flex:1;min-width:70px;border-radius:10px;padding:10px 6px;cursor:pointer;font-size:11.5px;font-weight:700;margin:3px}
+</style></head><body>
+
+<div class="nav">
+  <b>惠阳产业风洞</b>
+  <a href="index.html">① 今日话题</a><a href="town.html">🏘️ 各镇吃喝玩乐</a><a href="network.html">② 关系网</a><a href="who.html">③ 基本面</a><a href="choices.html">④ 五条路</a><a href="future.html">⑤ 未来</a><a href="windtunnel.html" class="on">⑥ 风洞</a><a href="blindspot.html">⑦ 被忽略</a><a href="report.html">⑧ 报告</a><a href="ending.html">⑨ 结语</a>
+</div>
+
+<div class="wrap">
+  <h1>惠阳可能被忽略的五件事</h1>
+  <p class="sub">不是短板，是还没被算进来的牌——而且大多同“一路之隔”的那个邻有关。</p>
+
+  <div class="card" style="margin-top:12px">
+    <div class="finding">
+      <div class="num">发现 1</div>
+      <div class="t">一路之隔：惠阳的财富与风浪，都从同一个方向来</div>
+      <div class="d">惠阳西连深圳坪山、龙岗，伯恩光学从深圳起家、在秋长长成8万人的全球龙头，吉他销40多国，深圳客来此安居，惠阳站对接深圳。一路之隔送来订单、就业与客流，也意味着外部市场一回调，惠阳会最先感知。</div>
+      <div class="means">👉 <b>对你我意味着：</b>临深是惠阳最大的家底。把产业、交通、城区配套经营好，把“邻”的红利接住、留住，这一程才走得稳。</div>
+    </div>
+    <div class="finding">
+      <div class="num">发现 2</div>
+      <div class="t">三产这一年-1.4%：工业挑大梁之外，城区烟火气仍在培育</div>
+      <div class="d">二产占约65%是支柱，三产约32%、这一年-1.4%。临深城区一部分消费流向深圳，怎样让本地人、跨城居住者愿意在惠阳消费、停留，是值得长期算的一笔。</div>
+      <div id="spChart" class="chart"></div>
+      <div class="means">👉 <b>对你我意味着：</b>多一条好逛的街、一场好演出、一个好商圈，把人留在惠阳消费，服务业和小店的日子就跟着起来。</div>
+    </div>
+    <div class="finding">
+      <div class="num">发现 3</div>
+      <div class="t">一块玻璃为全球智能设备做配套，客户多元就是韧性</div>
+      <div class="d">伯恩光学玻璃盖板全球领先，客户海外占比超五成；正向智能汽车盖板、AI眼镜、UTG超薄柔性玻璃拓展。配套龙头客户相对集中，多元客户与第二曲线，本身就是韧性。</div>
+      <div class="means">👉 <b>对你我意味着：</b>龙头客户越多元、第二曲线越宽，企业订单越稳，工人的岗位和排班也越稳。</div>
+    </div>
+    <div class="finding">
+      <div class="num">发现 4</div>
+      <div class="t">跨城钟摆与临深居住：把“睡在惠阳”变成“消费在惠阳”</div>
+      <div class="d">深圳客在淡水、秋长置业，跨城通勤族每天钟摆于两城。居住人口是城区最宝贵的消费与服务底盘，把商圈、学校、医院、文化配套做足，钟摆人群就愿意把钱和时间留在惠阳。</div>
+      <div class="means">👉 <b>对你我意味着：</b>住下来的人越多、配套越好，惠阳越不只是“睡城”，而是有烟火气、留得住人的临深城区。</div>
+    </div>
+    <div class="finding">
+      <div class="num">发现 5</div>
+      <div class="t">一把吉他、一颗荔枝：把“地标”和“时差”变成品牌</div>
+      <div class="d">秋长吉他销40多国、正从代工走向智能与自主品牌，镇隆荔枝是国家地理标志、年销约3.7亿。把口碑、地标变成品牌溢价和线上销路，利润才留在家门口。</div>
+      <div class="means">👉 <b>对你我意味着：</b>好东西有了自己的牌子和销路，制琴师、农户和年轻人才愿意留在惠阳，不必都往外跑。</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:#fbbf24">
+    <h2>🗳️ 你觉得惠阳最该先补哪一课？</h2>
+    <div class="vote" id="voteGrid" style="display:flex;flex-wrap:wrap"></div>
+    <div id="voteOut" style="margin-top:10px;font-size:12.5px;color:#cbd5e1"></div>
+  </div>
+
+  <div style="font-size:11px;color:#8a7a63;line-height:1.8">数据来源：惠阳区统计公报、政府工作报告、文旅与农业农村公开数据、南方+/惠州日报。模型为作者假设，非官方预测。</div>
+</div>
+<script>
+// 2025 三次产业与GDP增速（突出三产-1.4%）
+echarts.init(document.getElementById('spChart')).setOption({
+  backgroundColor:'transparent',
+  grid:{left:45,right:20,top:25,bottom:30},
+  xAxis:{type:'category',data:['一产','二产','三产','GDP'],axisLabel:{color:'#8a7a63'},axisLine:{lineStyle:{color:'#7c4a12'}}},
+  yAxis:{type:'value',axisLabel:{color:'#8a7a63',formatter:'{value}%'},splitLine:{lineStyle:{color:'#241a08'}}},
+  series:[{type:'bar',barWidth:38,
+    data:[
+      {value:5.1,itemStyle:{color:'#84cc16'}},
+      {value:5.6,itemStyle:{color:'#ea580c'}},
+      {value:-1.4,itemStyle:{color:'#f87171'}},
+      {value:3.3,itemStyle:{color:'#fbbf24'}}],
+    label:{show:true,position:'top',color:'#f0e6d8',formatter:'{c}%'}}]
+});
+(function(){
+  const KEY="huiyang_vote_v1";
+  const opts=[
+    {k:"neighbor",label:"经营好临深",c:"#ea580c"},
+    {k:"service",label:"培育城区烟火气",c:"#f97316"},
+    {k:"diversify",label:"客户多元",c:"#0ea5e9"},
+    {k:"live",label:"留住消费与人",c:"#ec4899"},
+    {k:"brand",label:"好东西创品牌",c:"#22c55e"}
+  ];
+  let d=JSON.parse(localStorage.getItem(KEY)||'{}');
+  opts.forEach(o=>{if(typeof d[o.k]!=="number")d[o.k]=0;});
+  document.getElementById('voteGrid').innerHTML=opts.map(o=>
+    `<button style="background:${o.c}22;border:1px solid ${o.c};color:${o.c}" onclick="pick('${o.k}')">${o.label}</button>`).join("");
+  window.pick=function(k){
+    const cur=opts.find(o=>o.k===k);
+    if(localStorage.getItem(KEY+"_done")){
+      document.getElementById('voteOut').innerHTML=`你这一票投给了 <b style="color:${cur.c}">${cur.label}</b>。`;return;
+    }
+    d[k]++;localStorage.setItem(KEY,JSON.stringify(d));localStorage.setItem(KEY+"_done","1");
+    document.getElementById('voteOut').innerHTML=`你这一票投给了 <b style="color:${cur.c}">${cur.label}</b>。<span style="color:#8a7a63">（本机选择，不同人的投票暂不汇总，不代表全体）</span>`;
+  };
+})();
+</script>
+</body></html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>惠阳一页报告 · 惠阳产业风洞</title>
+<script src="model.js"></script>
+<script src="lib/echarts.min.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#e6edf3;font:14px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:5px;align-items:center;padding:9px 14px;background:rgba(8,11,18,.95);border-bottom:1px solid #1b2434;overflow-x:auto}
+.nav span{font-weight:800;color:#fff;padding:6px 8px;white-space:nowrap}
+.nav a{background:#131c2b;color:#93a4bd;border:1px solid #22304a;padding:6px 12px;border-radius:20px;font-size:12.5px;text-decoration:none;white-space:nowrap;flex:none}
+.nav a.on{background:#ea580c;border-color:#f97316;color:#fff;font-weight:600}
+.wrap{max-width:760px;margin:auto;padding:16px}
+.card{background:#0e1523;border:1px solid #1c2739;border-radius:14px;padding:18px;margin-bottom:14px}
+h1{font-size:23px;margin:0 0 4px}.sub{color:#cbb59a;font-size:13px}
+h2{font-size:16.5px;margin:0 0 11px}
+.kpi{display:inline-block;text-align:center;width:31%;padding:11px 0;background:#131c2b;border-radius:10px;margin:1%}
+.kpi .v{font-size:18px;font-weight:800;color:#fbbf24}.kpi .l{font-size:11px;color:#cbb59a}
+.row{font-size:13.5px;line-height:2;color:#d3dce8;margin-top:8px}
+.red{color:#f87171}.green{color:#fb923c}.yellow{color:#fbbf24}.blue{color:#60a5fa}.purple{color:#c084fc}
+.chart{width:100%;height:280px;margin-top:10px}
+.find{display:flex;gap:11px;margin:11px 0;align-items:flex-start}
+.find .n{flex:none;width:30px;height:30px;border-radius:50%;background:#ea580c;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
+.find .t{font-size:14px;font-weight:700;color:#fff}
+.find .d{font-size:12.5px;color:#c2cdda;line-height:1.75;margin-top:2px}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px}
+th,td{border:1px solid #1c2739;padding:8px 10px;text-align:left;line-height:1.6}
+th{background:#131c2b;color:#f0e6d8}
+.lvl{display:inline-block;font-size:10.5px;padding:1px 8px;border-radius:9px;font-weight:700}
+.lvl.a{background:#ea580c22;color:#fb923c;border:1px solid #ea580c}
+.lvl.b{background:#f59e0b22;color:#fbbf24;border:1px solid #f59e0b}
+.lvl.c{background:#64748b22;color:#94a3b8;border:1px solid #64748b}
+</style></head><body>
+
+<div class="nav">
+  <span>惠阳产业风洞</span>
+  <a href="index.html">① 今日话题</a><a href="town.html">🏘️ 各镇吃喝玩乐</a><a href="network.html">② 关系网</a><a href="who.html">③ 基本面</a><a href="choices.html">④ 五条路</a><a href="future.html">⑤ 未来</a><a href="windtunnel.html">⑥ 风洞</a><a href="blindspot.html">⑦ 被忽略</a><a href="report.html" class="on">⑧ 报告</a><a href="ending.html">⑨ 结语</a>
+</div>
+
+<div class="wrap">
+  <h1>惠阳一页报告</h1>
+  <p class="sub">用公开数据，把惠阳讲清楚。不是预测，是风洞——把假设摆上台面，看系统怎么响应。</p>
+
+  <div class="card" style="border:1px solid #fbbf24;background:linear-gradient(135deg,#241503,#0e1523)">
+    <h2 style="font-size:15px;color:#fcd34d;margin-bottom:9px">📖 别急着看数字——这份报告，和你有什么关系？</h2>
+    <div class="row" style="margin-top:0">
+      · 看到“GDP”别犯怵，它就是<b class="yellow">“惠阳一年挣多少”</b>——878亿，每一块都连着一路之隔的深圳。<br>
+      · <b class="green">“邻”</b>，是惠阳财富和风险共同的来处：一块玻璃、一把吉他、一座车站、一群跨城居住的人，都与深圳有关。<br>
+      · <b class="blue">“一块玻璃、一把吉他”</b>，是秋长8万人的光学龙头和销40多国的吉他——产业扎根、品牌升级，家门口的岗位和收入就更稳。<br>
+      · <b class="purple">“三件事”</b>，是惠阳想更好、最该先使劲的三个地方。<br><br>
+      <b style="color:#fff">这份报告里没有一件和你无关。你大可以把自己当成惠阳区长，边看边想：换作是我，会先做哪一件？</b>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>一、一页看懂：现在什么状态</h2>
+    <div class="kpi"><div class="v">878.04亿</div><div class="l">GDP 2025</div></div>
+    <div class="kpi"><div class="v">+3.3%</div><div class="l">增速</div></div>
+    <div class="kpi"><div class="v">9个镇街</div><div class="l">3街道6镇</div></div>
+    <div class="row">
+      一产29.4亿（3.3%）、二产570.4亿（65.0%）、三产278.2亿（31.7%），三块加总对得上878.04。这是一个<b class="green">西连深圳、工业挑大梁的临深城区</b>——面积917平方公里、常住约96万，规上工业总产值超2088亿，先进制造业占规上工业增加值约七成。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>二、五条核心发现（决策者可能没算进来的）</h2>
+    <div class="find"><div class="n">1</div><div><div class="t">一路之隔：财富与风浪都从同一个方向来</div><div class="d">临深送来订单、就业与客流，也意味着外部市场一回调惠阳最先感知。把产业、交通、城区配套经营好，红利才留得稳。</div></div></div>
+    <div class="find"><div class="n">2</div><div><div class="t">三产这一年-1.4%：城区烟火气仍在培育</div><div class="d">二产占约65%是支柱，三产约32%、这一年-1.4%，一部分消费流向深圳。让本地人、跨城居住者愿意在惠阳消费，是值得长期算的一笔。</div></div></div>
+    <div class="find"><div class="n">3</div><div><div class="t">一块玻璃为全球做配套，客户多元就是韧性</div><div class="d">伯恩光学玻璃盖板全球领先、客户海外占比超五成，正向智能汽车、AI眼镜、UTG柔性玻璃拓展。多元客户与第二曲线就是韧性。</div></div></div>
+    <div class="find"><div class="n">4</div><div><div class="t">跨城钟摆：把“睡在惠阳”变成“消费在惠阳”</div><div class="d">深圳客置业、跨城通勤族每天钟摆。居住人口是城区消费与服务底盘，把商圈、学校、医院、文化配套做足，人就愿意把钱和时间留下。</div></div></div>
+    <div class="find"><div class="n">5</div><div><div class="t">一把吉他、一颗荔枝：把地标变成品牌</div><div class="d">秋长吉他销40多国、走向智能与自主品牌，镇隆荔枝是国家地理标志、年销约3.7亿。把口碑地标变成品牌溢价，利润留在家门口。</div></div></div>
+    <div id="findChart" class="chart"></div>
+  </div>
+
+  <div class="card">
+    <h2>三、离2030力争线还有多远</h2>
+    <div class="kpi"><div class="v">约1500亿</div><div class="l">力争线</div></div>
+    <div class="kpi"><div class="v" id="m50">—</div><div class="l">模型中位数</div></div>
+    <div class="kpi"><div class="v" id="mhit">—</div><div class="l">过线比例</div></div>
+    <div class="row" id="mrange"></div>
+  </div>
+
+  <div class="card">
+    <h2>四、哪些因素最牵动结果（真实拨动、当场重算）</h2>
+    <div class="row" style="margin-top:0">下面不是写死的系数，是把每个驱动单独关掉或加压、用同一个种子当场重算得到的中位数变化（亿元）。条越长，说明这一项越值得优先使劲。</div>
+    <div id="tornado" class="chart" style="height:340px"></div>
+  </div>
+
+  <div class="card">
+    <h2>五、决策者最该重视的三件事</h2>
+    <div class="row">
+      <b class="green">一、经营好临深这一程</b>——产业协同、深汕高铁惠阳段与跨城轨道对接，把深圳的外溢接住、留住。<br>
+      <b class="yellow">二、让电子信息、AI、汽车光学壮大扎根</b>——链主扩产、客户多元（智能汽车、AI眼镜），工业基本盘和家门口的岗位才稳。<br>
+      <b class="blue">三、培育城区烟火气与品牌</b>——商圈服务、吉他自主品牌、荔枝农品，把消费和年轻人留在惠阳。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>六、行动建议（按轻重缓急）</h2>
+    <table>
+      <tr><th>时序</th><th>重点</th><th>牵动什么</th></tr>
+      <tr><td>近期（先做）</td><td>稳链主扎根扩产，备好需求回调下的稳岗与订单回补</td><td>稳住工业基本盘，外部风浪来时企业有单、工人有岗</td></tr>
+      <tr><td>中期（培育）</td><td>培育城区商圈服务业、吉他自主品牌、农品品牌，对接跨城轨道</td><td>把消费和利润留在家门口，补上三产，年轻人愿意回来</td></tr>
+      <tr><td>持续（打底）</td><td>临深产业协同、学校医院等公共服务、都市农业与菜篮子</td><td>把跨城居住者变成本地人，留住家庭与人才</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>七、数据来源与分级</h2>
+    <table>
+      <tr><th>内容</th><th>等级</th><th>口径</th></tr>
+      <tr><td>GDP、三次产业、人口、面积、区划</td><td><span class="lvl a">实测</span></td><td>统计公报、政府工作报告、区情概况公开数据</td></tr>
+      <tr><td>规上工业、电子信息、国庆文旅</td><td><span class="lvl a">实测</span></td><td>统计公报、文旅部门公开数据、南方+/惠州日报报道</td></tr>
+      <tr><td>需求回调损失、订单恢复</td><td><span class="lvl b">推估</span></td><td>基于公开订单、开工与复产情况的模型测算，非官方统计</td></tr>
+      <tr><td>五条路径增量、压力损失</td><td><span class="lvl b">假设</span></td><td>作者设定的情景参数，非官方预测，可公开修改</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>八、模型边界与免责</h2>
+    <div class="row" style="margin-top:0">
+      这是一个<b class="blue">决策辅助与压力测试工具</b>，不是预测器，也不做现实因果断言；反事实情景无法直接在现实中验证。本报告<b class="yellow">不展示平台后台真实阅读、转发、点赞数据</b>，话题以关注档（高/较高/中）标注来源权威与多源程度。结论会随参数变化，换一组合理假设，结果可能不同——这正是它鼓励你做的事：动手改、当场算。
+    </div>
+  </div>
+
+  <div class="card" style="border-color:#f97316">
+    <h2 style="font-size:15px;color:#fed7aa;margin-bottom:9px">🤝 看到这儿，轮到你了</h2>
+    <div class="row" style="margin-top:0">
+      <b class="purple">🪞 代入：</b>你在惠阳上班、做买卖、带孩子，这些数字就是你每天过的日子。<br>
+      <b class="yellow">🧭 决策：</b>临深产业、链主扩产、城区烟火气——如果你来拍板，先使劲哪一件？<br>
+      <b class="blue">🔁 参与：</b>转给同样关心惠阳的家人朋友，看看大家选的一不一样。<br>
+      <b class="green">🎁 收获：</b>看懂一个临深城区怎么“算账”，再看自己的工作和生意，也会清楚不少。<br><br>
+      <b style="color:#fff">惠阳的事，说到底，是每一个惠阳人的事。</b>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:12px;justify-content:center">
+      <button onclick="rlike()" style="background:#ea580c;color:#fff;border:0;padding:9px 20px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer">👍 <span id="rcount">0</span></button>
+      <button onclick="rshare()" style="background:#f59e0b;color:#241503;border:0;padding:9px 20px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer">🔁 转给朋友</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>九、作者介绍</h2>
+    <div class="row" style="margin-top:0">
+      <b class="yellow">张凌 博士</b>，高校副教授、南粤优秀教师。长期从事区域产业、数字化与决策方法研究与教学。本系列（惠城·博罗·龙门·惠东·惠阳）由作者<b class="green">独立完成，无任何基金资助</b>，代码以 MIT 协议开源，欢迎各地在署名的基础上，复制到自己的区县一起“先算后干”。
+    </div>
+  </div>
+</div>
+
+<script>
+const base=HT.run(42,8000,HT.DEFAULT_PATHS);
+document.getElementById('m50').textContent=Math.round(base.p50)+'亿';
+document.getElementById('mhit').textContent=Math.round(base.hit)+'%';
+document.getElementById('mrange').innerHTML=
+ '跑很多遍，2030最可能落在<b class="yellow">'+Math.round(base.p10)+'–'+Math.round(base.p90)+'亿</b>。中位数约'+Math.round(base.p50)+'亿、过线率约'+Math.round(base.hit)+'%——不到四成，不算稳。电子信息、AI两条扛大头，汽车光学、吉他、农业让惠阳不靠单一引擎；外部需求是脉冲、链主与居住是慢变量，任何一个掉链子，分布就往下移。';
+
+// 关键增速对比（%）
+const growth=[
+ ['GDP',3.3],['规上工业总产值',4.1],['规上工业增加值',7.2],
+ ['国庆游客',13.1],['国庆旅游收入',13.5],['国庆过夜游客',21.9]
+].sort((a,b)=>a[1]-b[1]);
+echarts.init(document.getElementById('findChart')).setOption({
+ backgroundColor:'transparent',
+ grid:{left:110,right:42,top:18,bottom:26},
+ xAxis:{type:'value',axisLabel:{color:'#8a7a63',formatter:'{value}%'},splitLine:{lineStyle:{color:'#241a08'}}},
+ yAxis:{type:'category',data:growth.map(g=>g[0]),axisLabel:{color:'#f0e6d8',fontSize:11.5}},
+ series:[{type:'bar',barWidth:15,data:growth.map(g=>g[1]),
+   itemStyle:{color:new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:'#c2570a'},{offset:1,color:'#fb923c'}])},
+   label:{show:true,position:'right',formatter:'{c}%',color:'#f0e6d8',fontSize:11}}],
+ tooltip:{trigger:'axis'}
+});
+
+// 敏感性：关路径（改 paths）或加压（opts），同种子真实重算 p50
+function p50off(idx){
+  const paths=HT.DEFAULT_PATHS.map((p,j)=>j===idx?Object.assign({},p,{mu:0}):p);
+  return HT.run(42,8000,paths).p50;
+}
+function p50opts(opts){return HT.run(42,8000,HT.DEFAULT_PATHS,opts).p50;}
+const drivers=[
+ ['电子信息落空',p50off(0)],['AI机器人落空',p50off(1)],['汽车光学落空',p50off(2)],
+ ['吉他落空',p50off(3)],['都市农业落空',p50off(4)],
+ ['外部需求回调',p50opts({demand:{strength:1,duration:3}})],
+ ['链主扩产放缓',p50opts({anchorFactor:0.7})]
+];
+let rows=drivers.map(([label,p])=>({label,d:Math.round(base.p50-p)}));
+rows.sort((a,b)=>a.d-b.d);
+echarts.init(document.getElementById('tornado')).setOption({
+ backgroundColor:'transparent',
+ grid:{left:105,right:45,top:16,bottom:24},
+ xAxis:{type:'value',name:'中位数少多少(亿)',nameTextStyle:{color:'#8a7a63'},axisLabel:{color:'#8a7a63'},splitLine:{lineStyle:{color:'#241a08'}}},
+ yAxis:{type:'category',data:rows.map(r=>r.label),axisLabel:{color:'#f0e6d8',fontSize:11.5}},
+ series:[{type:'bar',data:rows.map(r=>r.d),barWidth:15,
+   itemStyle:{color:new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:'#c2570a'},{offset:1,color:'#fb923c'}])},
+   label:{show:true,position:'right',formatter:'{c}亿',color:'#f0e6d8',fontSize:11}}],
+ tooltip:{trigger:'axis'}
+});
+
+var rk="like_report_huiyang",rn=parseInt(localStorage.getItem(rk)||"0");rcount.textContent=rn;
+function rlike(){rn++;localStorage.setItem(rk,rn);rcount.textContent=rn;}
+function rshare(){
+ var m=document.createElement("div");
+ m.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+ m.onclick=()=>m.remove();
+ m.innerHTML='<div style="background:#0f172a;padding:20px;border-radius:14px;text-align:center"><div style="color:#fff;font-size:14px;margin-bottom:12px">截图二维码，发给朋友/群</div><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(location.href)+'" style="width:200px;height:200px;background:#fff;padding:8px;border-radius:8px"><div style="color:#94a3b8;font-size:12px;margin-top:12px">扫码打开</div></div>';
+ document.body.appendChild(m);navigator.clipboard&&navigator.clipboard.writeText(location.href);
+}
+</script>
+</body></html>

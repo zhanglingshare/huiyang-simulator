@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>惠阳产业风洞 · 风洞</title>
+<script src="lib/echarts.min.js"></script>
+<script src="model.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#e6edf3;font:14px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:5px;align-items:center;padding:9px 14px;background:rgba(8,11,18,.95);border-bottom:1px solid #1b2434;overflow-x:auto}
+.nav b{font-size:14px;margin-right:6px;flex:none}
+.nav a{background:#131c2b;color:#93a4bd;border:1px solid #22304a;padding:6px 12px;border-radius:20px;font-size:12.5px;text-decoration:none;white-space:nowrap;flex:none}
+.nav a.on{background:#ea580c;border-color:#f97316;color:#fff;font-weight:600}
+.wrap{max-width:680px;margin:auto;padding:16px}
+.card{background:#0e1523;border:1px solid #1c2739;border-radius:14px;padding:18px;margin-bottom:14px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:#cbb59a;font-size:13px;line-height:1.8}
+h2{font-size:16px;margin:0 0 8px}
+.slider-row{margin-bottom:14px}
+.slider-row label{font-size:13px;color:#f0e6d8;display:block;margin-bottom:4px}
+.slider-row input{width:100%}.slider-row span{color:#fbbf24;font-weight:700}
+.chart{width:100%;height:260px;margin-top:8px}
+.deep{font-size:13px;line-height:2;color:#d8e0ea;margin-top:10px}
+.real{background:#1a1206;border:1px solid #c2570a;border-radius:10px;padding:14px;margin-top:10px}
+.real .tag{font-size:11px;color:#fdba74;font-weight:700;margin-bottom:8px}
+.kpi{display:inline-block;text-align:center;width:31%;padding:8px 0;background:#0a0f1a;border-radius:10px;margin:1%}
+.kpi .v{font-size:18px;font-weight:800;color:#fbbf24}.kpi .l{font-size:10.5px;color:#cbb59a}
+.lossline{font-size:12.5px;color:#fde68a;line-height:1.9;margin-top:10px;background:#0a0f1a;border-radius:8px;padding:10px 12px}
+.note{border-left:3px solid #f97316;background:#1a1206;border-radius:0 8px 8px 0;padding:9px 12px;margin-top:10px;font-size:12.5px;color:#fde68a;line-height:1.85}
+.bridge{border-radius:11px;padding:13px 15px;margin:12px 0;font-size:12.5px;line-height:1.85}
+.b-orange{background:#1a1206;border:1px solid #f59e0b55;color:#fde68a}
+.likebar{display:flex;justify-content:center;margin:14px 0 4px;background:rgba(15,23,42,.96);border:1px solid #f97316;border-radius:24px;padding:9px 20px;gap:22px}
+.likebar button{background:none;border:none;color:#e2e8f0;font-size:14px;cursor:pointer;font-family:inherit}
+</style></head><body>
+
+<div class="nav">
+  <b>惠阳产业风洞</b>
+  <a href="index.html">① 今日话题</a><a href="town.html">🏘️ 各镇吃喝玩乐</a><a href="network.html">② 关系网</a><a href="who.html">③ 基本面</a><a href="choices.html">④ 五条路</a><a href="future.html">⑤ 未来</a><a href="windtunnel.html" class="on">⑥ 风洞</a><a href="blindspot.html">⑦ 被忽略</a><a href="report.html">⑧ 报告</a><a href="ending.html">⑨ 结语</a>
+</div>
+
+<div class="wrap">
+  <h1>风洞：深圳打个喷嚏，模型真的重算</h1>
+  <p class="sub">四个滑块都接进统一模型——外部需求、订单持续、链主扩产、临深居住一动，下面的GDP数字随参数真实变化，不是只改曲线和文字。惠阳与深圳一路之隔，这是经济外溢的传导型压测，不是自然灾害，也不是日常拥堵。</p>
+
+  <div class="card" style="margin-top:12px">
+    <h2>🎛️ 压力参数</h2>
+    <div class="slider-row">
+      <label>外部需求回调强度（深圳与海外消费电子、光学订单，0＝无回调）</label>
+      <input type="range" id="strength" min="0" max="150" value="100"><span id="strengthV">一次明显回调</span>
+    </div>
+    <div class="slider-row">
+      <label>订单回落持续（月）</label>
+      <input type="range" id="duration" min="0" max="6" value="3"><span id="durationV">3个月</span>
+    </div>
+    <div class="slider-row">
+      <label>链主（光学/电子）扩产或外迁</label>
+      <input type="range" id="anchor" min="70" max="120" value="100"><span id="anchorV">按计划 100%</span>
+    </div>
+    <div class="slider-row">
+      <label>临深居住景气（深圳客置业、跨城居住）</label>
+      <input type="range" id="housing" min="70" max="120" value="100"><span id="housingV">100%</span>
+    </div>
+  </div>
+
+  <div class="real">
+    <div class="tag">📐 统一模型真实输出（跑一万遍）</div>
+    <div class="kpi"><div class="v" id="oP50">—</div><div class="l">2030 GDP中位数</div></div>
+    <div class="kpi"><div class="v" id="oHit">—</div><div class="l">过1500比例</div></div>
+    <div class="kpi"><div class="v" id="oRange">—</div><div class="l">80%区间</div></div>
+    <div class="lossline" id="lossLine"></div>
+  </div>
+
+  <div class="card">
+    <h2>📉 订单/开工脉冲与逐周恢复</h2>
+    <div id="recChart" class="chart"></div>
+    <div class="deep" id="recText"></div>
+    <div class="note">恢复曲线描述电子与光学企业订单、开工的短期形态；上方GDP数字才是统一模型对2030全年的真实计算。需求损失已按“脉冲+恢复”计入，保守地不假设长期产业链外迁。</div>
+  </div>
+
+  <div class="card" style="border-color:#f97316">
+    <h2>🎲 如果你是惠阳区长</h2>
+    <div class="deep">
+      外部需求回调压<b style="color:#f87171">电子、光学企业的订单、开工与工人排班</b>——拓展智能汽车、AI眼镜等多元客户、订单延后回补、稳岗稳工，是把“临深制造”接住的杠杆。<br>
+      链主扩产放缓或部分外迁压<b style="color:#fbbf24">电子信息与汽车光学长期基本盘</b>——链主因子降到0.7，两条路的预期贡献同步折减。<br>
+      临深居住景气压<b style="color:#fdba74">城区消费与服务业</b>——这正是三产这一年-1.4%背后，值得用心培育的部分。<br>
+      一个值得看见的对比：一次需求回调当年净损失约5.8亿、占全区GDP不到0.7%，可对一家深圳配套厂的排班、一户临深家庭，可能是一整年的指望；而光学龙头向智能汽车、AI眼镜打开第二曲线，本身就是韧性。
+    </div>
+  </div>
+
+  <div class="bridge b-orange">🔍 <b>风洞压一压，决策者该追问什么？</b><br>外部需求是“突然回调、逐周恢复”，考验客户多元、订单回补与稳岗；链主扩产、临深居住是“慢变量”，考验产业扎根与城区配套。两类风险性质不同，预案也该不同。压测不是为了吓谁，而是让外部风浪再来时，企业有单、工人有岗、恢复得快。</div>
+
+  <div class="likebar">
+    <button onclick="likePage()">👍 <span id="pcount">0</span></button>
+    <button onclick="sharePage()">🔁 转给朋友</button>
+  </div>
+</div>
+<script>
+const strengthS=document.getElementById('strength'),durationS=document.getElementById('duration'),
+      anchorS=document.getElementById('anchor'),housingS=document.getElementById('housing');
+let recChart=echarts.init(document.getElementById('recChart'));
+function draw(){
+  const ST=+strengthS.value/100, D=+durationS.value, AF=+anchorS.value/100, HF=+housingS.value/100;
+  strengthV.textContent = ST===0?'无回调':(Math.abs(ST-1)<0.005?'一次明显回调':Math.round(ST*100)+'% 回调强度');
+  durationV.textContent=D+'个月';
+  anchorV.textContent=(AF<1?'扩产放缓/部分外迁 ':AF>1?'加码扩产 ':'按计划 ')+Math.round(AF*100)+'%';
+  housingV.textContent=Math.round(HF*100)+'%';
+
+  const opts={};
+  if(ST>0) opts.demand={strength:ST,duration:D};
+  if(Math.abs(AF-1)>0.001) opts.anchorFactor=AF;
+  if(Math.abs(HF-1)>0.001) opts.housingFactor=HF;
+  const r=HT.run(42,10000,HT.DEFAULT_PATHS,opts);
+  oP50.textContent=Math.round(r.p50)+'亿';
+  oHit.textContent=Math.round(r.hit)+'%';
+  oRange.textContent=Math.round(r.p10)+'-'+Math.round(r.p90);
+
+  const loss = ST>0 ? HT.demandLoss(ST,D) : {elec:0,auto:0,other:0,total:0};
+  document.getElementById('lossLine').innerHTML = ST>0
+    ? `📉 需求回调当年净损失约 <b style="color:#fbbf24">${loss.total.toFixed(1)}亿</b>：电子信息约${loss.elec.toFixed(1)}亿（已扣${Math.round(HT.DEMAND.rebook*100)}%订单延后回补）、汽车光学约${loss.auto.toFixed(1)}亿、其他约${loss.other.toFixed(1)}亿。`
+    : '📉 无回调情景：电子、光学企业订单开工保持正常。';
+
+  // 9周恢复（第0周为回调当周）
+  const curve = ST>0 ? HT.demandCurve(ST)
+    : {weeks:Array.from({length:9},(_,i)=>'第'+i+'周'),loss:Array(9).fill(0)};
+  const flow = curve.loss.map(L=>+(100-L).toFixed(1));
+  recChart.setOption({
+    backgroundColor:'transparent',
+    grid:{left:45,right:20,top:20,bottom:30},
+    xAxis:{type:'category',data:curve.weeks,axisLabel:{color:'#8a7a63',fontSize:10}},
+    yAxis:{type:'value',min:0,max:110,axisLabel:{color:'#8a7a63',formatter:'{value}%'}},
+    series:[{type:'line',data:flow,smooth:true,itemStyle:{color:'#fb923c'},areaStyle:{color:'#fb923c22'},
+      markLine:{data:[{yAxis:100,label:{formatter:'正常',color:'#8a7a63'}}],lineStyle:{color:'#7c4a12',type:'dashed'}}}]
+  });
+  recText.innerHTML = ST===0
+    ? '无回调，电子、光学企业订单开工保持正常。'
+    : `回调当周订单、开工大幅走低（谷底约<b style="color:#f87171">${Math.round(Math.min(...flow))}%</b>），随后约6–8周回到趋势。对全区GDP，这是约${(loss.total/HT.BASE*100).toFixed(2)}%的小数字；对一家深圳配套厂、一排工人排班，却是一整年的指望——多元客户与稳岗的意义，就在这个落差里。`;
+}
+[strengthS,durationS,anchorS,housingS].forEach(s=>s.oninput=draw);
+draw();
+
+// 点赞/转发（本机计数，不伪装全站）
+var lk="like_"+location.pathname,ln=parseInt(localStorage.getItem(lk)||"0");pcount.textContent=ln;
+function likePage(){ln++;localStorage.setItem(lk,ln);pcount.textContent=ln;}
+function sharePage(){
+ const m=document.createElement("div");
+ m.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+ m.onclick=()=>m.remove();
+ m.innerHTML='<div style="background:#0f172a;padding:20px;border-radius:14px;text-align:center"><div style="color:#fff;font-size:14px;margin-bottom:12px">截图二维码，发给朋友/群</div><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(location.href)+'" style="width:200px;height:200;background:#fff;padding:8px;border-radius:8px"><div style="color:#94a3b8;font-size:12px;margin-top:12px">扫码打开</div></div>';
+ document.body.appendChild(m);navigator.clipboard&&navigator.clipboard.writeText(location.href);
+}
+</script>
+</body></html>

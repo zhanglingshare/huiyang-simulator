@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>惠阳产业风洞 · 未来</title>
+<script src="lib/echarts.min.js"></script>
+<script src="model.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#e6edf3;font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.nav{position:sticky;top:0;z-index:50;display:flex;gap:5px;align-items:center;padding:9px 14px;background:rgba(8,11,18,.95);border-bottom:1px solid #1b2434;overflow-x:auto}
+.nav b{font-size:14px;margin-right:6px;flex:none}
+.nav a{background:#131c2b;color:#93a4bd;border:1px solid #22304a;padding:6px 12px;border-radius:20px;font-size:12.5px;text-decoration:none;white-space:nowrap;flex:none}
+.nav a.on{background:#ea580c;border-color:#f97316;color:#fff;font-weight:600}
+.wrap{max-width:880px;margin:auto;padding:16px}
+h1{font-size:20px;margin:0 0 2px}
+.sub{color:#a08d75;font-size:13px;margin:0 0 14px}
+.card{background:#0e1523;border:1px solid #1c2739;border-radius:12px;padding:18px;margin-bottom:12px}
+.card h2{font-size:14.5px;margin:0 0 12px;color:#f0e6d8}
+.btn{background:#ea580c;color:#fff;border:0;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.btn.gh{background:#f97316}
+.ctrl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select{background:#241a08;color:#f0e6d8;border:1px solid #7c4a12;padding:8px 12px;border-radius:6px;font-size:12.5px}
+.seed-in{background:#0a0f1a;border:1px solid #7c4a12;color:#fbbf24;padding:8px 10px;border-radius:6px;font-size:13px;width:90px}
+.prob{font-size:38px;font-weight:800;text-align:center;margin:6px 0}
+.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.gauges{grid-template-columns:1fr}}
+.gauge{background:#0a0f1a;border:1px solid #1c2739;border-radius:10px;padding:14px;text-align:center}
+.gauge .l{font-size:11px;color:#8a7a63}
+.gauge .v{font-size:24px;font-weight:800;margin-top:5px;font-variant-numeric:tabular-nums}
+.gauge .d{font-size:10.5px;color:#8a7a63;margin-top:4px}
+.chart{width:100%;height:280px}
+.chart-sm{height:200px}
+.note{font-size:12.5px;color:#cbb59a;margin-top:10px;line-height:2;background:#0a0f1a;border-radius:8px;padding:12px 14px}
+.note b{color:#f0e6d8}
+.note .h{color:#fdba74;font-weight:800;display:block;font-size:11px;letter-spacing:1px;margin-bottom:5px}
+.note .warn-h{color:#fbbf24}
+.scen3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+@media(max-width:700px){.scen3{grid-template-columns:1fr}}
+.scen3 .s{background:#0a0f1a;border-radius:9px;padding:12px;text-align:center;border:1px solid}
+.scen3 .s .l{font-size:10.5px;color:#8a7a63}
+.scen3 .s .v{font-size:19px;font-weight:800;margin-top:4px}
+.param-panel{font-size:12px;color:#cbb59a;line-height:2}
+.param-panel .row{display:flex;gap:8px;padding:3px 0}
+.param-panel .k{color:#f0e6d8;flex:none;min-width:110px}
+.param-panel .v2{color:#fbbf24}
+table.sens{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:10px}
+table.sens th{color:#8a7a63;font-weight:600;padding:6px 8px;text-align:right;border-bottom:1px solid #1c2739;font-size:10.5px}
+table.sens th:first-child,table.sens td:first-child{text-align:left}
+table.sens td{padding:6px 8px;text-align:right;border-bottom:1px solid #152033;color:#cbb59a}
+.status{font-size:11.5px;color:#8a7a63;margin-left:8px}
+.conclusion{background:#0e1523;border:1px solid #1c2739;border-radius:12px;padding:18px;font-size:13px;line-height:2;color:#cbd5e1}
+.next{text-align:center;margin-top:16px}
+.next a{background:#ea580c;color:#fff;padding:11px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block}
+#out{display:none}
+</style></head><body>
+
+<div class="nav">
+  <b>惠阳产业风洞</b>
+  <a href="index.html">① 今日话题</a>
+  <a href="town.html">🏘️ 各镇吃喝玩乐</a>
+  <a href="network.html">② 世界怎么长</a>
+  <a href="who.html">③ 基本面</a>
+  <a href="choices.html">④ 五条路</a>
+  <a href="future.html" class="on">⑤ 未来</a>
+  <a href="windtunnel.html">⑥ 风洞测试</a>
+  <a href="blindspot.html">⑦ 忽略了什么</a>
+  <a href="report.html">⑧ 分析报告</a>
+  <a href="ending.html">⑨ 结语</a>
+</div>
+
+<div class="wrap">
+  <h1>2030年惠阳长什么样：把未来反复跑</h1>
+  <p class="sub">选模式、定种子、点按钮。同样的种子必定跑出同样的结果——这是可以复现的。</p>
+
+  <!-- 先猜后揭 -->
+  <div style="margin:12px 0;padding:16px;background:linear-gradient(135deg,#2a1506,#0f172a);border:1px solid #fbbf24;border-radius:14px">
+    <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:4px">🎯 先别往下看——你觉得2030年惠阳最可能落到多少？</div>
+    <div style="font-size:12.5px;color:#cbb59a;margin-bottom:12px">凭直觉选一个，再看模型跑出来的分布。</div>
+    <div style="display:flex;gap:8px">
+      <button onclick="guess(1)" style="flex:1;background:#f8717122;border:1px solid #f87171;color:#f87171;border-radius:10px;padding:10px 6px;cursor:pointer;font-size:13px;font-weight:700">1400亿以下</button>
+      <button onclick="guess(2)" style="flex:1;background:#fbbf2422;border:1px solid #fbbf24;color:#fbbf24;border-radius:10px;padding:10px 6px;cursor:pointer;font-size:13px;font-weight:700">1400-1500亿</button>
+      <button onclick="guess(3)" style="flex:1;background:#34d39922;border:1px solid #34d399;color:#34d399;border-radius:10px;padding:10px 6px;cursor:pointer;font-size:13px;font-weight:700">1500亿以上</button>
+    </div>
+    <div id="guessOut" style="margin-top:10px;font-size:12.5px;color:#cbd5e1"></div>
+  </div>
+
+  <!-- 控制 -->
+  <div class="card">
+    <h2>控制台</h2>
+    <div class="ctrl">
+      <select id="selN">
+        <option value="1000">快速模式 · 1000次</option>
+        <option value="10000" selected>完整模式 · 10000次</option>
+      </select>
+      <span style="font-size:12px;color:#cbb59a">随机种子</span>
+      <input type="number" class="seed-in" id="seed" value="42">
+      <button class="btn" id="bRun">🎲 开始模拟</button>
+    </div>
+  </div>
+
+  <div id="out">
+    <!-- 参数透明面板 -->
+    <div class="card">
+      <h2>这次模拟用了什么参数（全部公开，可复现）</h2>
+      <div class="param-panel" id="paramPanel"></div>
+    </div>
+
+    <!-- 概率 -->
+    <div class="card" style="text-align:center">
+      <div style="font-size:12.5px;color:#cbb59a">达到约1500亿力争线的模拟比例</div>
+      <div class="prob" id="prob">—</div>
+      <div style="font-size:11.5px;color:#8a7a63">这不是“惠阳有多少概率成功”，是“在当前假设下，一万次里有多少次过线”</div>
+    </div>
+
+    <!-- 三档 -->
+    <div class="card">
+      <h2>三档结果：把一万次从小到大排队</h2>
+      <div class="gauges">
+        <div class="gauge" style="border-color:#7f1d1d">
+          <div class="l">第10百分位</div>
+          <div class="v" id="p10" style="color:#f87171">—</div>
+          <div class="d">只有10%比这更低</div>
+        </div>
+        <div class="gauge" style="border-color:#713f12">
+          <div class="l">中位数 P50</div>
+          <div class="v" id="p50" style="color:#fbbf24">—</div>
+          <div class="d">一半在这上面，一半在下面</div>
+        </div>
+        <div class="gauge" style="border-color:#14532d">
+          <div class="l">第90百分位</div>
+          <div class="v" id="p90" style="color:#34d399">—</div>
+          <div class="d">只有10%比这更高</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 直方图 -->
+    <div class="card">
+      <h2>一万次结果堆成一座“山”</h2>
+      <div id="chHist" class="chart"></div>
+      <div class="note"><span class="h">这张图怎么看</span>
+        <b>横轴</b>是2030年GDP的可能值，<b>柱子高低</b>是一万次里落在这个区间的次数。柱子堆成钟形——中间高、两边低，说明大部分结果挤在中间。<b>紫色竖线</b>是约1500亿力争线：线右边的柱子（橙色）=过线，左边（蓝色）=没过。你能一眼看出“山”的主体压在力争线的哪一侧。鼠标移到柱子上能看到具体次数。
+      </div>
+    </div>
+
+    <!-- 贡献堆叠 -->
+    <div class="card">
+      <h2>2030的产值是怎么一段段加上去的</h2>
+      <div id="chStack" class="chart-sm chart"></div>
+      <div class="note"><span class="h">这张图怎么看</span>
+        最底下灰色是“现在已经有的878亿”，往上每一段颜色是五条路五年里能加上的产值。<b>电子信息（橙）和AI机器人（黄）两段最长</b>，加起来约390亿、占全部新增约六成五——这两条路扛了大头。汽车光学、吉他、都市农业三段较短，但它们让惠阳不完全依赖单一引擎。如果最下面两条路打折扣，上面三段加起来也补不上。
+      </div>
+    </div>
+
+    <!-- 龙卷风 波动 -->
+    <div class="card">
+      <h2>五条路各自的“说不准”有多大</h2>
+      <div id="chTorn" class="chart"></div>
+      <div class="note"><span class="h">这张图怎么看</span>
+        横条往左右伸得越长，说明这条路的结果越说不准。电子信息、AI机器人两条伸得最长——它们贡献大，但摆动空间也大。都市农业那条最短，结果最确定，但它的总量也小。<b class="warn-h">注意：</b>这里的摆动范围是模型设定的参数，不是从历史数据实测的。它是否合理需要用现实校准——你可以改这个数。
+      </div>
+    </div>
+
+    <!-- 路径系数 -->
+    <div class="card">
+      <h2>哪条路和最终结果“绑得最紧”</h2>
+      <div id="chCoef" class="chart"></div>
+      <div class="note"><span class="h">这张图怎么看</span>
+        条越长，说明这条路上下波动时，最终结果跟着动得越多，也就是它和结果在模型里同步性最强。<b>但这不是“谁最重要”</b>——它只反映“在这组参数下，谁和结果一起摆动”。这个数字是模型内部的关联程度，<b>不能证明现实中某条路因果作用更强</b>。现实因果需要更严格的证据。
+      </div>
+    </div>
+
+    <!-- 参数敏感性 -->
+    <div class="card" style="border-color:#7c4a12">
+      <h2>参数敏感性：每条路单独±20%，结果变多少</h2>
+      <div style="font-size:12.5px;color:#cbb59a;line-height:1.9;margin-bottom:10px">
+        保持其他路不动，只把某条路的预期贡献调高或调低20%，用<b>同一个种子</b>重跑，差异纯粹来自这个参数。这跟风洞页的“事件压测”是两本账，分开看。
+      </div>
+      <div class="ctrl">
+        <button class="btn gh" id="bSens">⚡ 跑参数敏感性</button>
+        <span class="status" id="sensStatus"></span>
+      </div>
+      <div id="sensOut" style="display:none">
+        <div id="chSens" class="chart"></div>
+        <table class="sens" id="sensTable"></table>
+        <div class="note" style="margin-top:12px"><span class="h warn-h" style="color:#fbbf24">怎么用这个结果</span>
+          蓝色=该路+20%后达标率的变化，红色=-20%后的变化。条越长=这条路越敏感。资源有限时先盯敏感的路——它动一点，达标率就动得多。但<b>“敏感”不等于“重要”</b>：敏感只说明模型里它和结果绑得紧，现实中先做哪条，还要看谁可控、成本低、见效快。
+        </div>
+      </div>
+    </div>
+
+    <!-- 三情景 -->
+    <div class="card">
+      <h2>三个情景对应什么局面</h2>
+      <div class="scen3">
+        <div class="s" style="border-color:#7f1d1d"><div class="l">较差 · 什么同时不顺</div><div class="v" id="sBad" style="color:#f87171">—</div></div>
+        <div class="s" style="border-color:#713f12"><div class="l">中位 · 正常走</div><div class="v" id="sMid" style="color:#fbbf24">—</div></div>
+        <div class="s" style="border-color:#14532d"><div class="l">较好 · 超预期</div><div class="v" id="sGood" style="color:#34d399">—</div></div>
+      </div>
+      <div class="note" style="margin-top:10px">
+        较差情景对应“外部需求回调+龙头扩产放缓”一起发生；中位对应“按节奏走”；较好对应“电子信息超预期，AI与汽车光学放量”。较好和较差之间相差约257亿，差不多相当于惠阳现在一个多季度的GDP——这个摆动幅度说明结果落在一个区间里，关键看几个节点守不守得住。
+      </div>
+    </div>
+
+    <div class="conclusion" id="conclusion"></div>
+  </div>
+
+  <div class="next"><a href="windtunnel.html">下一步：风洞测试 →</a></div>
+</div>
+
+<script>
+const BASE=HT.BASE, TARGET=HT.TARGET, GLOBAL_SD=HT.NOISE_SD;
+const PATHS=HT.DEFAULT_PATHS;
+const charts={};
+function initC(id){const c=echarts.init(document.getElementById(id));charts[id]=c;return c}
+initC('chHist');initC('chStack');initC('chTorn');initC('chCoef');initC('chSens');
+
+function simulateRaw(seed,N,paths){
+  const m=HT.run(seed,N,paths);
+  return {raw:m.rawResults, contribs:null};
+}
+function summarize(raw){
+  const sorted=[...raw].sort((a,b)=>a-b);
+  return {
+    p10:HT.quantile(sorted,.1),p50:HT.quantile(sorted,.5),p90:HT.quantile(sorted,.9),
+    hit:sorted.filter(x=>x>=TARGET).length/sorted.length*100,sorted
+  };
+}
+
+function run(){
+  const seed=+document.getElementById('seed').value||42;
+  const N=+document.getElementById('selN').value;
+  const m=HT.run(seed,N,PATHS);
+  const s={p10:m.p10,p50:m.p50,p90:m.p90,hit:m.hit,sorted:m.results};
+  const coefs=m.coefs;
+
+  // 参数面板
+  document.getElementById('paramPanel').innerHTML=`
+    <div class="row"><span class="k">随机种子</span><span class="v2">${seed}</span><span style="color:#8a7a63">（同种子必同结果）</span></div>
+    <div class="row"><span class="k">模拟次数</span><span class="v2">${N.toLocaleString()}次</span></div>
+    <div class="row"><span class="k">起点（实测）</span><span class="v2">${BASE}亿</span><span style="color:#8a7a63">2025年GDP</span></div>
+    <div class="row"><span class="k">力争线</span><span class="v2">约${TARGET}亿</span><span style="color:#8a7a63">官方“十五五”力争目标</span></div>
+    <div class="row" style="margin-top:6px"><span class="k">五条路预期/摆动</span></div>
+    ${PATHS.map(p=>`<div class="row" style="padding-left:20px"><span style="color:${p.color};min-width:110px">· ${p.name}</span><span class="v2">预期${p.mu}亿，摆动±${p.sd}亿</span></div>`).join('')}
+    <div class="row"><span class="k">全局扰动</span><span class="v2">±${GLOBAL_SD}亿</span><span style="color:#8a7a63">模拟外部冲击等随机因素</span></div>
+  `;
+
+  const probColor=s.hit>50?'#34d399':s.hit>20?'#fbbf24':'#f87171';
+  document.getElementById('prob').innerHTML=`<span style="color:${probColor}">${s.hit.toFixed(1)}%</span>`;
+  document.getElementById('p10').textContent=Math.round(s.p10)+'亿';
+  document.getElementById('p50').textContent=Math.round(s.p50)+'亿';
+  document.getElementById('p90').textContent=Math.round(s.p90)+'亿';
+  document.getElementById('sBad').textContent=Math.round(s.p10)+'亿';
+  document.getElementById('sMid').textContent=Math.round(s.p50)+'亿';
+  document.getElementById('sGood').textContent=Math.round(s.p90)+'亿';
+
+  // 直方图
+  const bins=42,min=Math.floor(s.p10*.92),max=Math.ceil(s.p90*1.06),step=(max-min)/bins;
+  const tbi=Math.max(0,Math.min(bins-1,Math.round((TARGET-min)/step-.5)));
+  const labels=[],data=[];
+  for(let b=0;b<bins;b++){labels.push(Math.round(min+step*(b+.5)));data.push(0)}
+  s.sorted.forEach(r=>{const bi=Math.min(bins-1,Math.max(0,Math.floor((r-min)/step)));data[bi]++});
+  charts.chHist.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:ps=>`约${ps[0].name}亿<br/>出现${ps[0].value}次`},
+    grid:{left:55,right:25,top:25,bottom:40},
+    xAxis:{type:'category',data:labels,axisLabel:{color:'#8a7a63',interval:Math.floor(bins/8)},axisLine:{lineStyle:{color:'#7c4a12'}}},
+    yAxis:{type:'value',axisLabel:{color:'#8a7a63'},splitLine:{lineStyle:{color:'#241a08'}}},
+    series:[{type:'bar',data:data.map((v,i)=>({value:v,itemStyle:{color:labels[i]>=TARGET?'#fb923c':'#3b82f6',opacity:.85}})),barCategoryGap:'15%',
+      markLine:{silent:true,symbol:'none',data:[{xAxis:tbi,lineStyle:{color:'#a78bfa',width:2,type:'dashed'},label:{color:'#a78bfa',formatter:'约1500亿',position:'start'}}]}}]
+  });
+
+  // 堆叠
+  charts.chStack.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},axisPointer:{type:'shadow'}},
+    legend:{top:0,textStyle:{color:'#cbb59a',fontSize:10.5},type:'scroll'},
+    grid:{left:60,right:20,top:35,bottom:20},
+    xAxis:{type:'value',axisLabel:{color:'#8a7a63'},splitLine:{lineStyle:{color:'#241a08'}}},
+    yAxis:{type:'category',data:['2030年'],axisLabel:{color:'#cbb59a'}},
+    series:[
+      {name:'现有盘子',type:'bar',stack:'s',data:[BASE],itemStyle:{color:'#374151'}},
+      ...PATHS.map(p=>({name:p.name,type:'bar',stack:'s',data:[p.mu],itemStyle:{color:p.color}}))
+    ]
+  });
+
+  // 龙卷风（设定波动）
+  const tSorted=[...PATHS].sort((a,b)=>b.sd-a.sd);
+  charts.chTorn.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:ps=>{const p=tSorted[ps[0].dataIndex];return `${p.name}<br/>摆动±${p.sd}亿`}},
+    legend:{top:0,textStyle:{color:'#cbb59a',fontSize:10.5},data:['向下摆','向上摆']},
+    grid:{left:110,right:50,top:35,bottom:30},
+    xAxis:{type:'value',axisLabel:{color:'#8a7a63',formatter:'{value}'},splitLine:{lineStyle:{color:'#241a08'}}},
+    yAxis:{type:'category',data:tSorted.map(p=>p.name),axisLabel:{color:'#f0e6d8',fontSize:11.5}},
+    series:[
+      {name:'向下摆',type:'bar',data:tSorted.map(p=>-p.sd),itemStyle:{color:'#f87171',opacity:.75},barWidth:18},
+      {name:'向上摆',type:'bar',data:tSorted.map(p=>p.sd),itemStyle:{color:'#3b82f6',opacity:.75},barWidth:18}
+    ]
+  });
+
+  // 路径系数（直接读 model 输出的 coefs）
+  const cOrder=coefs.map((v,i)=>({v,p:PATHS[i]})).sort((a,b)=>b.v-a.v);
+  charts.chCoef.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:ps=>`${cOrder[ps[0].dataIndex].p.name}<br/>关联强度 ${ps[0].value.toFixed(3)}`},
+    grid:{left:110,right:50,top:15,bottom:30},
+    xAxis:{type:'value',max:1,axisLabel:{color:'#8a7a63'},splitLine:{lineStyle:{color:'#241a08'}}},
+    yAxis:{type:'category',data:cOrder.map(o=>o.p.name),axisLabel:{color:'#f0e6d8',fontSize:11.5}},
+    series:[{type:'bar',data:cOrder.map(o=>({value:o.v.toFixed(3),itemStyle:{color:o.p.color}})),barWidth:18,
+      label:{show:true,position:'right',color:'#cbb59a',fontSize:10.5}}]
+  });
+
+  const topCoef=cOrder[0];
+  document.getElementById('conclusion').innerHTML=`
+    中位数落在 <b style="color:#fbbf24">${Math.round(s.p50)}亿</b>，${s.hit>50?'一万次里过半数过了约1500亿力争线':'一万次里过半数没过线'}（比例${s.hit.toFixed(1)}%）。
+    在模型内部，和最终结果同步性最强的是 <b style="color:${topCoef.p.color}">${topCoef.p.name}</b>（关联强度${topCoef.v.toFixed(3)}）。
+    再次说明：这是模型内部的关联，不代表现实因果大小。全部参数公开，换种子、改预期，结果会相应变化——你可以自己复跑。
+  `;
+  document.getElementById('out').style.display='block';
+  window.sensBase={seed,s};
+}
+
+function runSensitivity(){
+  const seed=+document.getElementById('seed').value||42;
+  const N=+document.getElementById('selN').value;
+  document.getElementById('sensStatus').textContent='正在跑 11 次模拟…';
+  const base=summarize(simulateRaw(seed,N,PATHS).raw);
+  const rows=[];
+  PATHS.forEach((p,i)=>{
+    const plus=PATHS.map((q,j)=>j===i?{...q,mu:q.mu*1.2}:q);
+    const minus=PATHS.map((q,j)=>j===i?{...q,mu:q.mu*.8}:q);
+    const rP=summarize(simulateRaw(seed,N,plus).raw);
+    const rM=summarize(simulateRaw(seed,N,minus).raw);
+    rows.push({name:p.name,color:p.color,
+      plusProb:rP.hit-base.hit,minusProb:rM.hit-base.hit,
+      p50P:rP.p50-base.p50,p50M:rM.p50-base.p50});
+  });
+  rows.sort((a,b)=>(Math.abs(b.plusProb)+Math.abs(b.minusProb))-(Math.abs(a.plusProb)+Math.abs(a.minusProb)));
+  charts.chSens.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'axis',backgroundColor:'#241a08',borderColor:'#7c4a12',textStyle:{color:'#f0e6d8'},formatter:ps=>{const r=rows[ps[0].dataIndex];const d=ps[0].seriesName==='+20%'?r.plusProb:r.minusProb;return `${r.name}<br/>${ps[0].seriesName}：达标率${d>=0?'+':''}${d.toFixed(1)}%`}},
+    legend:{top:0,textStyle:{color:'#cbb59a',fontSize:11},data:['+20%','-20%']},
+    grid:{left:110,right:50,top:35,bottom:30},
+    xAxis:{type:'value',axisLabel:{color:'#8a7a63',formatter:'{value}%'},splitLine:{lineStyle:{color:'#241a08'}}},
+    yAxis:{type:'category',data:rows.map(r=>r.name),axisLabel:{color:'#f0e6d8',fontSize:11.5}},
+    series:[
+      {name:'+20%',type:'bar',data:rows.map(r=>r.plusProb.toFixed(1)),itemStyle:{color:'#3b82f6',opacity:.8},barWidth:16},
+      {name:'-20%',type:'bar',data:rows.map(r=>r.minusProb.toFixed(1)),itemStyle:{color:'#f87171',opacity:.8},barWidth:16}
+    ]
+  });
+  document.getElementById('sensTable').innerHTML=`
+    <tr><th>路径</th><th>-20%中位</th><th>基准</th><th>+20%中位</th><th>摆动</th></tr>
+    ${rows.map(r=>`<tr><td style="color:${r.color}">${r.name}</td>
+      <td style="color:#f87171">${Math.round(base.p50+r.p50M)}</td>
+      <td style="color:#fbbf24">${Math.round(base.p50)}</td>
+      <td style="color:#34d399">${Math.round(base.p50+r.p50P)}</td>
+      <td>±${Math.round((Math.abs(r.p50P)+Math.abs(r.p50M))/2)}</td></tr>`).join('')}
+  `;
+  document.getElementById('sensStatus').textContent=`完成（基准达标率${base.hit.toFixed(1)}%）`;
+  document.getElementById('sensOut').style.display='block';
+}
+
+document.getElementById('bRun').onclick=run;
+document.getElementById('bSens').onclick=runSensitivity;
+window.addEventListener('resize',()=>Object.values(charts).forEach(c=>c.resize()));
+run();
+</script>
+
+<div class="likebar">
+  <button onclick="likePage()">👍 <span id="pcount">0</span></button>
+  <button onclick="sharePage()">🔁 转给朋友</button>
+</div>
+<style>
+.likebar{position:relative;bottom:auto;transform:none;display:flex;justify-content:center;margin:20px 0;background:rgba(15,23,42,.96);border:1px solid #f97316;border-radius:24px;padding:9px 20px;gap:22px;z-index:999;box-shadow:0 6px 24px rgba(0,0,0,.6)}
+.likebar button{background:none;border:none;color:#e2e8f0;font-size:14px;cursor:pointer}
+.likebar button:active{transform:scale(1.15)}
+</style>
+<script>
+(function(){
+  var k="like_"+location.pathname;
+  var n=parseInt(localStorage.getItem(k)||"0");
+  document.getElementById("pcount").textContent=n;
+  window.likePage=function(){n++;localStorage.setItem(k,n);document.getElementById("pcount").textContent=n;};
+  window.sharePage=function(){
+    var m=document.getElementById("shareModal");
+    if(!m){
+      m=document.createElement("div");m.id="shareModal";
+      m.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+      m.onclick=function(){m.remove();};
+      m.innerHTML='<div style="background:#0f172a;padding:20px;border-radius:14px;text-align:center" onclick="event.stopPropagation()"><div style="color:#fff;font-size:14px;margin-bottom:12px">截图二维码，发给朋友/群</div><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(location.href)+'" style="width:200px;height:200;background:#fff;padding:8px;border-radius:8px"><div style="color:#94a3b8;font-size:12px;margin-top:12px">扫码打开</div></div>';
+      document.body.appendChild(m);
+    }
+    navigator.clipboard && navigator.clipboard.writeText(location.href);
+  };
+})();
+</script>
+<script>
+function guess(n){
+  const msgs={
+    1:"你偏谨慎。模型跑出来中位数约1473亿——比你猜的要乐观一些。",
+    2:"你猜在中间。模型中位数约1473亿，正好落在这个区间里。",
+    3:"你偏乐观。模型只有约39.5%的比例过1500亿——不到四成，没那么稳。"
+  };
+  document.getElementById("guessOut").innerHTML="揭晓："+msgs[n]+"<br>下面这张分布，就是它跑了一万遍的结果。";
+}
+</script>
+</body></html>
