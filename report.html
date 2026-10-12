@@ -242,7 +242,7 @@ document.getElementById('mhit').textContent=Math.round(base.hit)+'%';
 document.getElementById('scenRange').textContent=Math.round(base.p10)+'–'+Math.round(base.p90)+'亿';
 
 function init(id){return echarts.init(document.getElementById(id));}
-const ORANGE=new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:#c2570a},{offset:1,color:#fb923c}]);
+const ORANGE=new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:'#c2570a'},{offset:1,color:'#fb923c'}]);
 
 // 增速对比
 const growth=[['GDP',3.3],['规上工业总产值',4.1],['规上工业增加值',7.2],['国庆游客',13.1],['国庆旅游收入',13.5],['国庆过夜游客',21.9]].sort((a,b)=>a[1]-b[1]);
