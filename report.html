@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>惠阳产业分析报告（Demo版）· 张凌</title>
-<script src="model.js?v=20261012b"></script>
+<script src="model.js?v=20261012c"></script>
 <script src="lib/echarts.min.js"></script>
 <style>
 *{box-sizing:border-box}
@@ -344,7 +344,7 @@ function rshare(){
 
 <script>
 (function(){
- var t=HT.valueTable(), rows=t.jobs.slice().reverse(), top=t.jobs[0];
+ var t=HT.valueTable(), sorted=t.jobs, top=sorted[0];
  var el=document.getElementById("valueJobs");
  if(!el||typeof echarts==="undefined") return;
  var chart=echarts.init(el);
@@ -353,9 +353,9 @@ function rshare(){
   title:{text:"每亿元带动就业（人/亿，模型估算）",left:"center",top:2,textStyle:{color:"#a08d75",fontSize:11,fontWeight:400}},
   grid:{left:92,right:56,top:30,bottom:24},
   xAxis:{type:"value",axisLabel:{color:"#64748b",fontSize:10},splitLine:{lineStyle:{color:"#1b2434"}}},
-  yAxis:{type:"category",data:rows.map(x=>x.name),axisLabel:{color:"#cbd5e1",fontSize:11}},
+  yAxis:{type:"category",inverse:true,data:sorted.map(x=>x.name),axisLabel:{color:"#cbd5e1",fontSize:11},axisTick:{show:false}},
   series:[{type:"bar",barWidth:15,
-    data:rows.map(x=>({value:x.val,itemStyle:{color:(x.name===top.name?x.color:x.color+"55"),borderRadius:4}})),
+    data:sorted.map(x=>({name:x.name,value:x.val,itemStyle:{color:(x.name===top.name?x.color:x.color+"55"),borderRadius:4}})),
     label:{show:true,position:"right",color:"#e2e8f0",fontSize:10,formatter:p=>p.value+"人"}}]
  });
  var mult=top.val/t.jobs[t.jobs.length-1].val;

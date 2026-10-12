@@ -135,7 +135,7 @@ h1{font-size:20px;margin:0 0 2px}
 </div>
 
 <script src="lib/echarts.min.js"></script>
-<script src="model.js?v=20261012b"></script>
+<script src="model.js?v=20261012c"></script>
 <script>
 const SEED=42,N=4000,P=HT.DEFAULT_PATHS;
 const full=HT.run(SEED,N,P);
@@ -183,16 +183,18 @@ const RMETA = {
 const rulerChart = echarts.init(document.getElementById("rulerChart"));
 const rbtns = document.querySelectorAll(".rbtn");
 function drawRuler(k) {
-  const rows = VT[k].slice().reverse(), top = VT[k][0];
+  const sorted = VT[k], top = sorted[0];   // 已按该尺子降序
   rulerChart.setOption({
     backgroundColor: "transparent",
-    grid: {left: 92, right: 52, top: 10, bottom: 24},
+    grid: {left: 92, right: 56, top: 12, bottom: 26},
     xAxis: {type: "value", axisLabel: {color: "#64748b", fontSize: 10}, splitLine: {lineStyle: {color: "#1b2434"}}},
-    yAxis: {type: "category", data: rows.map(x => x.name), axisLabel: {color: "#cbd5e1", fontSize: 11}},
+    yAxis: {type: "category", inverse: true, data: sorted.map(x => x.name),
+      axisLabel: {color: "#cbd5e1", fontSize: 11}, axisTick: {show: false}, axisLine: {lineStyle: {color: "#22304a"}}},
     series: [{type: "bar", barWidth: 16,
-      data: rows.map(x => ({value: x.val, itemStyle: {color: (x.name === top.name ? x.color : x.color + "55"), borderRadius: 4}})),
+      data: sorted.map(x => ({name: x.name, value: x.val,
+        itemStyle: {color: (x.name === top.name ? x.color : x.color + "55"), borderRadius: 4}})),
       label: {show: true, position: "right", color: "#e2e8f0", fontSize: 10,
-        formatter: p => p.value + rows[p.dataIndex].unit}}]
+        formatter: p => p.value + sorted[p.dataIndex].unit}}]
   });
   document.getElementById("rulerText").innerHTML =
     '<span class="lab">' + RMETA[k].q + '</span>这把尺子下，排在第一的是 <b style="color:#fdba74">' + top.name + '</b>。' + RMETA[k].note +
