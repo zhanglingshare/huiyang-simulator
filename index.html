@@ -126,6 +126,7 @@ async function loadHot(){
 
 function allTopics(){return allData;}
 
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 function render(){
   let list=curCat==="all"?allTopics():allTopics().filter(x=>x.c===curCat);
   const grads={ind:"linear-gradient(135deg,#1e3a8a,#0f1a2e)",life:"linear-gradient(135deg,#7c2d12,#1a0f0f)",city:"linear-gradient(135deg,#374151,#0f1a2e)",food:"linear-gradient(135deg,#7c2d12,#2a1506)",fun:"linear-gradient(135deg,#155e63,#0f1a2e)",gossip:"linear-gradient(135deg,#78350f,#241a08)"};
@@ -136,16 +137,16 @@ function render(){
   el.innerHTML=list.map((x)=>{
     const liveBadge=x.live?'<span style="background:#dc2626;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;margin-left:5px">实时</span>':'';
     const tc=tierColor[x.tier]||"#34d399";
-    return `<div class="tcard" data-t="${x.t}" style="background:${grads[x.c]||grads.city};border-radius:12px;padding:14px;cursor:pointer">
-      <div style="font-size:11px;color:#94a3b8">${catName[x.c]||"城市"}${liveBadge} · ${x.srcLevel||""} · ${x.src||""}</div>
-      <div style="font-size:16px;font-weight:800;color:#fff;margin:8px 0 6px;line-height:1.4">${x.t}</div>
+    return `<div class="tcard" data-t="${esc(x.t)}" style="background:${grads[x.c]||grads.city};border-radius:12px;padding:14px;cursor:pointer">
+      <div style="font-size:11px;color:#94a3b8">${catName[x.c]||"城市"}${liveBadge} · ${esc(x.srcLevel||"")} · ${esc(x.src||"")}</div>
+      <div style="font-size:16px;font-weight:800;color:#fff;margin:8px 0 6px;line-height:1.4">${esc(x.t)}</div>
       <div style="display:flex;align-items:center;justify-content:space-between">
-        <span style="font-size:11px;font-weight:800;color:${tc};border:1px solid ${tc};border-radius:8px;padding:3px 10px">关注 · ${x.tier}</span>
-        <span class="likeBtn" onclick="event.stopPropagation();like(this,'${x.t}')" style="font-size:12px;color:#94a3b8;cursor:pointer">👍 <b class="ln">0</b></span>
+        <span style="font-size:11px;font-weight:800;color:${tc};border:1px solid ${tc};border-radius:8px;padding:3px 10px">关注 · ${esc(x.tier||"")}</span>
+        <span class="likeBtn" onclick="event.stopPropagation();like(this,'${esc(x.t)}')" style="font-size:12px;color:#94a3b8;cursor:pointer">👍 <b class="ln">0</b></span>
       </div>
-      <div class="detail" style="font-size:11.5px;color:#cbd5e1;margin-top:8px;display:none">${x.d||""}</div>
+      <div class="detail" style="font-size:11.5px;color:#cbd5e1;margin-top:8px;display:none">${esc(x.d||"")}${x.url?'<div style="margin-top:8px"><a href="'+esc(x.url)+'" target="_blank" rel="noopener nofollow" style="color:#7dd3fc;text-decoration:underline" onclick="event.stopPropagation()">查看原始报道 ↗</a></div>':''}</div>
     </div>`;
-  }).join("");
+  }).join("")||'<div style="grid-column:1/-1;color:#5b6b82;text-align:center;padding:26px 0">今日话题快照暂不可用（读取失败），可点「重新扫描」重试；页面其余内容不受影响。</div>';
   document.querySelectorAll("#topicList .tcard").forEach(c=>{
     c.onclick=()=>{const d=c.querySelector(".detail");d.style.display=d.style.display==="none"?"block":"none";};
   });
@@ -173,16 +174,24 @@ document.getElementById("btnScan").onclick=async function(){
   this.innerHTML='<span class="pulse">⏳</span> 扫描中…';
   document.getElementById("scanInfo").textContent="雷达旋转中，正在读取当日话题快照…";
   document.getElementById("scanline").classList.add("fast");
-  await loadHot();
-  this.innerHTML="🔄 重新扫描";
-  document.getElementById("scanline").classList.remove("fast");
-  document.getElementById("scanInfo").textContent=scanText();
+  try{
+    await loadHot();
+    this.innerHTML="🔄 重新扫描";
+    document.getElementById("scanline").classList.remove("fast");
+    document.getElementById("scanInfo").textContent=scanText();
+  }catch(e){
+    this.innerHTML="🔄 重新扫描";
+    document.getElementById("scanline").classList.remove("fast");
+    document.getElementById("scanInfo").textContent="扫描失败：快照暂不可用（请检查网络后重试）；页面其余内容不受影响。";
+  }
   render();
 };
 
 (async()=>{
-  await loadHot();
-  document.getElementById("scanInfo").textContent=scanText();
+  let hotOk=true;
+  try{ await loadHot(); }
+  catch(e){ hotOk=false; hotMeta={}; allData=[]; }
+  document.getElementById("scanInfo").textContent=hotOk?scanText():"今日话题快照暂不可用（读取失败），可点「重新扫描」重试；页面其余内容不受影响。";
   render();
 })();
 </script>

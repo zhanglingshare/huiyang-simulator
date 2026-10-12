@@ -1,0 +1,20 @@
+{
+  "event_id": "example-001",
+  "region": "huiyang",
+  "event_type": "project_progress",
+  "subject": "（示例模板，请复制改名为真实事件，勿直接提交本文件为事件）",
+  "event_date": null,
+  "published_at": null,
+  "fetched_at": "2026-10-12T08:00:00",
+  "source_url": "",
+  "evidence_level": "D",
+  "status": "pending",
+  "related_paths": [],
+  "parameter_change": null,
+  "requires_review": true,
+  "review": {
+    "reviewer": null,
+    "reviewed_at": null,
+    "comment": null
+  }
+}

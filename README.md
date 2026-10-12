@@ -199,3 +199,34 @@ Copyright © 2026 **张凌（Zhang Ling）**. All rights reserved.
 ---
 
 *让每一个临深重大决策，先跑一遍。*
+
+
+## 数据治理与质量门（v2）
+
+### 每日数据（hot.json / life.json）— v2 审计字段
+
+每日雷达（daily-hot-radar / life-pulse-radar）生成的数据文件自 v2 起携带审计字段：
+
+- 顶层：`schema_version: 2`、`updated`（内容时间）、`fetched_at`（快照生成时间）
+- 条目级：`published_at`（报道发布时间，未知为 null）、`fetched_at`、`verified_status: "pending"`（待人工核验）
+
+原则与模型口径一致：**不杜撰**（每条话题必须有真实可访问的 `url`/`source`）、**估算必标注**（关注档/热度非平台后台真实统计）。
+
+### 发布前质量门（tests/verify_all.js）
+
+本地或 CI 运行 `node tests/verify_all.js`，全过才允许发布：
+
+1. 全部页面内联 script 语法检查
+2. 模型口径断言（SEED=42、N=10000 复算 p10/p50/p90/hit，与页面口径同源，可复现）
+3. 每日数据文件 v2 字段校验
+4. 事件证据库（evidence/events/*.json）字段完整性
+
+### 事件证据库（evidence/）
+
+"新闻/事件 → 模型参数"必须经过人工审核：雷达只登记事实（`status: pending`、`parameter_change: null`），
+审核通过（`status: approved` 且填写 `parameter_change` + `review`）后才由
+`node tests/release_params.js` 发布为 `params.json` 参数版本。详见 `evidence/README.md`。
+
+### CI（.github/workflows/verify.yml）
+
+GitHub Actions 在 push/PR 时自动运行质量门。
