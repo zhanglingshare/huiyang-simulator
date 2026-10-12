@@ -15,12 +15,13 @@ const HT = {
   BASE: 878.04,
   TARGET: 1500,
   NOISE_SD: 32,
+  // jobs=每亿元增量带动就业（人/亿，模型估算的劳动密集度）；eco=生态友好度（0–100，模型估算）
   DEFAULT_PATHS: [
-    {mu: 260, sd: 70, name: '电子信息', color: '#ea580c'},
-    {mu: 130, sd: 45, name: 'AI机器人', color: '#f59e0b'},
-    {mu: 110, sd: 38, name: '汽车光学', color: '#0ea5e9'},
-    {mu: 60,  sd: 22, name: '吉他时尚', color: '#ec4899'},
-    {mu: 35,  sd: 12, name: '都市农业', color: '#22c55e'}
+    {mu: 260, sd: 70, name: '电子信息', color: '#ea580c', jobs: 600,  eco: 60},
+    {mu: 130, sd: 45, name: 'AI机器人', color: '#f59e0b', jobs: 500,  eco: 62},
+    {mu: 110, sd: 38, name: '汽车光学', color: '#0ea5e9', jobs: 650,  eco: 60},
+    {mu: 60,  sd: 22, name: '吉他时尚', color: '#ec4899', jobs: 2200, eco: 78},
+    {mu: 35,  sd: 12, name: '都市农业', color: '#22c55e', jobs: 2800, eco: 90}
   ],
 
   // 基本面事实（均来自 2025 统计公报 / 2026 政府工作报告公开口径）
@@ -106,6 +107,20 @@ const HT = {
       loss.push(+Math.max(0, v).toFixed(1));
     }
     return {weeks, loss};
+  },
+
+  // 价值实验：三把尺子各问各的问题，返回各尺子下五条路的排序（确定性，不随机）
+  //  gdp  比谁撑起的总盘子大（μ，亿）；jobs 比每亿元带动多少岗位（人/亿）；eco 比生态友好度（0–100）
+  valueTable(paths) {
+    const P = (paths || this.DEFAULT_PATHS).map(p => Object.assign({}, p));
+    const mk = (key, unit) => P.map(p => ({name: p.name, color: p.color,
+      val: +p[key].toFixed(0), unit}))
+      .sort((a, b) => b.val - a.val);
+    return {
+      gdp: mk('mu', '亿'),
+      jobs: mk('jobs', '人/亿'),
+      eco: mk('eco', '分')
+    };
   },
 
   run(seed, N, paths, opts = {}) {

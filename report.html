@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>惠阳产业分析报告（Demo版）· 张凌</title>
-<script src="model.js"></script>
+<script src="model.js?v=20261012b"></script>
 <script src="lib/echarts.min.js"></script>
 <style>
 *{box-sizing:border-box}
@@ -156,6 +156,30 @@ th{background:#131c2b;color:#f0e6d8}
         <div class="plain"><span class="lab">人话版</span>跑很多遍，2030最可能落在<b id="scenRange"></b>。中间那档几乎贴着1500亿力争线、余量很薄；电子信息、AI两条扛大头，一旦外部需求回调或链主扩产放缓，分布就往下移。这不是定数，是把假设摆上台面给你看。</div>
       </div>
     </div>
+  </div>
+
+  <div class="card" style="border-color:#b45309">
+    <h2 style="color:#fcd34d">★ 换把尺子，第一名会换（价值实验）</h2>
+    <div style="font-size:12.5px;color:#cbd5e1;line-height:1.8">衡量一个区域，从来不止一把尺子。比“谁撑起的盘子大”，和比“谁稳住的饭碗多、谁对青山更友好”，问的不是一回事——尺子一换，原来的第一名就可能让位。</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0">
+      <div style="flex:1;min-width:150px;background:#0a0f1a;border:1px solid #1c2739;border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:#8a7a63">📈 比经济总量</div>
+        <div style="font-size:15px;font-weight:700;color:#fdba74;margin-top:4px">电子信息</div>
+        <div style="font-size:11px;color:#a08d75;margin-top:3px">大支柱撑起经济骨架</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:#0a0f1a;border:1px solid #1c2739;border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:#8a7a63">👥 比就业饭碗</div>
+        <div style="font-size:15px;font-weight:700;color:#fdba74;margin-top:4px">都市农业</div>
+        <div style="font-size:11px;color:#a08d75;margin-top:3px">每亿元带动岗位最多</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:#0a0f1a;border:1px solid #1c2739;border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:#8a7a63">🌿 比生态岸线</div>
+        <div style="font-size:15px;font-weight:700;color:#fdba74;margin-top:4px">都市农业</div>
+        <div style="font-size:11px;color:#a08d75;margin-top:3px">生态友好度最高</div>
+      </div>
+    </div>
+    <div class="chartbox" style="height:250px"><div id="valueJobs" class="chartbox"></div></div>
+    <div class="plain"><span class="lab">这张图在说什么</span>同样投一亿元，都市农业、吉他时尚带回的饭碗，约是电子信息、AI等大项目的<b id="vjMult"></b>；盘子要大靠大项目，千家万户的日子要稳、年轻人要留得住，靠这些“小而密”的产业。<b>不是谁替代谁，而是各归其位、组合成最稳的一手。</b>就业密度为模型估算，非官方统计。</div>
   </div>
 
   <div class="card" style="border-color:#7c2d12">
@@ -316,5 +340,27 @@ function rshare(){
  m.innerHTML='<div style="background:#0f172a;padding:20px;border-radius:14px;text-align:center"><div style="color:#fff;font-size:14px;margin-bottom:12px">截图二维码，发给朋友/群</div><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(location.href)+'" style="width:200px;height:200px;background:#fff;padding:8px;border-radius:8px"><div style="color:#94a3b8;font-size:12px;margin-top:12px">扫码打开</div></div>';
  document.body.appendChild(m);navigator.clipboard&&navigator.clipboard.writeText(location.href);
 }
+</script>
+
+<script>
+(function(){
+ var t=HT.valueTable(), rows=t.jobs.slice().reverse(), top=t.jobs[0];
+ var el=document.getElementById("valueJobs");
+ if(!el||typeof echarts==="undefined") return;
+ var chart=echarts.init(el);
+ chart.setOption({
+  backgroundColor:"transparent",
+  title:{text:"每亿元带动就业（人/亿，模型估算）",left:"center",top:2,textStyle:{color:"#a08d75",fontSize:11,fontWeight:400}},
+  grid:{left:92,right:56,top:30,bottom:24},
+  xAxis:{type:"value",axisLabel:{color:"#64748b",fontSize:10},splitLine:{lineStyle:{color:"#1b2434"}}},
+  yAxis:{type:"category",data:rows.map(x=>x.name),axisLabel:{color:"#cbd5e1",fontSize:11}},
+  series:[{type:"bar",barWidth:15,
+    data:rows.map(x=>({value:x.val,itemStyle:{color:(x.name===top.name?x.color:x.color+"55"),borderRadius:4}})),
+    label:{show:true,position:"right",color:"#e2e8f0",fontSize:10,formatter:p=>p.value+"人"}}]
+ });
+ var mult=top.val/t.jobs[t.jobs.length-1].val;
+ document.getElementById("vjMult").textContent=Math.round(mult)+"倍上下";
+ window.addEventListener("resize",()=>chart.resize());
+})();
 </script>
 </body></html>
