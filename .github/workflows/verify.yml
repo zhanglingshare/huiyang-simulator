@@ -1,0 +1,17 @@
+name: verify
+
+on:
+  push:
+    paths: ['**.html', '**.js', '**.json', '**.py', '.github/workflows/**']
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: 发布前质量门（语法+口径+数据+证据）
+        run: node tests/verify_all.js
