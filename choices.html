@@ -135,7 +135,7 @@ h1{font-size:20px;margin:0 0 2px}
 </div>
 
 <script src="lib/echarts.min.js"></script>
-<script src="model.js?v=20261012c"></script>
+<script src="model.js?v=20261012d"></script>
 <script>
 const SEED=42,N=4000,P=HT.DEFAULT_PATHS;
 const full=HT.run(SEED,N,P);
@@ -195,7 +195,7 @@ function drawRuler(k) {
         itemStyle: {color: (x.name === top.name ? x.color : x.color + "55"), borderRadius: 4}})),
       label: {show: true, position: "right", color: "#e2e8f0", fontSize: 10,
         formatter: p => p.value + sorted[p.dataIndex].unit}}]
-  });
+  }, true);
   document.getElementById("rulerText").innerHTML =
     '<span class="lab">' + RMETA[k].q + '</span>这把尺子下，排在第一的是 <b style="color:#fdba74">' + top.name + '</b>。' + RMETA[k].note +
     '<br>尺子没有对错，只是想先护住什么；成熟的布局，是让五条路各归其位，组合成最稳的那一手。';
