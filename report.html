@@ -58,7 +58,14 @@ th{background:#131c2b;color:#f0e6d8}
 .lvl{display:inline-block;font-size:10.5px;padding:1px 8px;border-radius:9px;font-weight:700}
 .lvl.a{background:#ea580c22;color:#fb923c;border:1px solid #ea580c}
 .lvl.b{background:#f59e0b22;color:#fbbf24;border:1px solid #f59e0b}
-</style></head><body>
+</style><link rel="stylesheet" href="ui/premium.css">
+<script>/* premium 样式偶发 503：失败自动重试一次 */
+(function(){var r={};Array.prototype.forEach.call(
+document.querySelectorAll('link[rel="stylesheet"][href*="premium"]'),
+function(l){l.addEventListener("error",function(){if(r[l.href])return;r[l.href]=1;
+var s=document.createElement("link");s.rel="stylesheet";
+s.href=l.href.split("?")[0]+"?retry="+Date.now();document.head.appendChild(s);});});})();</script>
+</head><body>
 
 <div class="nav">
   <span>惠阳产业风洞</span>

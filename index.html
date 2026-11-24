@@ -28,7 +28,14 @@ h1{font-size:22px;margin:0 0 2px;letter-spacing:.5px}
 .scanline.fast{animation-duration:.8s}
 @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 .pulse{animation:pulse 1.5s ease-in-out infinite}
-</style></head><body>
+</style><link rel="stylesheet" href="ui/premium.css">
+<script>/* premium 样式偶发 503：失败自动重试一次 */
+(function(){var r={};Array.prototype.forEach.call(
+document.querySelectorAll('link[rel="stylesheet"][href*="premium"]'),
+function(l){l.addEventListener("error",function(){if(r[l.href])return;r[l.href]=1;
+var s=document.createElement("link");s.rel="stylesheet";
+s.href=l.href.split("?")[0]+"?retry="+Date.now();document.head.appendChild(s);});});})();</script>
+</head><body>
 
 <div class="nav">
   <b>惠阳产业风洞</b>

@@ -42,7 +42,14 @@ h1{font-size:21px;margin:0}
 @keyframes vscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .next{text-align:center;margin-top:18px}
 .next a{background:#ea580c;color:#fff;padding:11px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block}
-</style></head><body>
+</style><link rel="stylesheet" href="ui/premium.css">
+<script>/* premium 样式偶发 503：失败自动重试一次 */
+(function(){var r={};Array.prototype.forEach.call(
+document.querySelectorAll('link[rel="stylesheet"][href*="premium"]'),
+function(l){l.addEventListener("error",function(){if(r[l.href])return;r[l.href]=1;
+var s=document.createElement("link");s.rel="stylesheet";
+s.href=l.href.split("?")[0]+"?retry="+Date.now();document.head.appendChild(s);});});})();</script>
+</head><body>
 
 <div class="nav">
   <b>惠阳产业风洞</b>

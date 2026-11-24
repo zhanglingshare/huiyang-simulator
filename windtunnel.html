@@ -29,7 +29,14 @@ h2{font-size:16px;margin:0 0 8px}
 .b-orange{background:#1a1206;border:1px solid #f59e0b55;color:#fde68a}
 .likebar{display:flex;justify-content:center;margin:14px 0 4px;background:rgba(15,23,42,.96);border:1px solid #f97316;border-radius:24px;padding:9px 20px;gap:22px}
 .likebar button{background:none;border:none;color:#e2e8f0;font-size:14px;cursor:pointer;font-family:inherit}
-</style></head><body>
+</style><link rel="stylesheet" href="ui/premium.css">
+<script>/* premium 样式偶发 503：失败自动重试一次 */
+(function(){var r={};Array.prototype.forEach.call(
+document.querySelectorAll('link[rel="stylesheet"][href*="premium"]'),
+function(l){l.addEventListener("error",function(){if(r[l.href])return;r[l.href]=1;
+var s=document.createElement("link");s.rel="stylesheet";
+s.href=l.href.split("?")[0]+"?retry="+Date.now();document.head.appendChild(s);});});})();</script>
+</head><body>
 
 <div class="nav">
   <b>惠阳产业风洞</b>

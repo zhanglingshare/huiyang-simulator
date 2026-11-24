@@ -1,0 +1,854 @@
+/* ============================================================
+   惠东 · 高级浅色设计系统（深色模板 → 白玻璃浅色）
+   只改颜色 / 字重 / 阴影 / 圆角，不动结构与交互
+   ============================================================ */
+:root{
+  --ac:#c2410c;            /* 区域主色：惠东海青 */
+  --ac-2:#ea580c;
+  --ac-soft:rgba(234,88,12,.10);
+  --ac-line:rgba(234,88,12,.34);
+  --ink:#12161c;
+  --ink2:#3f4753;
+  --ink3:#6b7280;
+  --ink4:#8b95a5;
+  --hair:rgba(17,24,39,.09);
+  --hair-2:rgba(17,24,39,.14);
+  --card:#ffffff;
+  --card-2:#fbfcfd;
+  --shadow-1:0 1px 2px rgba(16,24,40,.04);
+  --shadow-2:0 2px 6px rgba(16,24,40,.04), 0 14px 34px -18px rgba(16,24,40,.22);
+  --shadow-3:0 4px 12px rgba(16,24,40,.05), 0 28px 60px -24px rgba(16,24,40,.26);
+  --r-lg:18px; --r-md:14px; --r-sm:10px;
+  --gold:#b45309;
+  --red:#c0392b;
+  --green:#0f766e;
+  --violet:#6d28d9;
+}
+
+/* ---------- 基础 ---------- */
+html body{
+  background:
+    radial-gradient(900px 420px at 12% -6%, rgba(234,88,12,.07), transparent 60%),
+    radial-gradient(760px 380px at 92% 4%, rgba(234,88,12,.05), transparent 62%),
+    linear-gradient(180deg,#fdfefe 0%,#fafbfc 42%,#f7f9fb 100%) !important;
+  color:var(--ink) !important;
+  font-feature-settings:"tnum" 1;
+  -webkit-font-smoothing:antialiased;
+}
+html body ::selection{background:rgba(234,88,12,.18);color:var(--ink)}
+html body a{color:var(--ac)}
+html body b,html body strong{color:inherit}
+html body small{color:var(--ink3)}
+
+/* ---------- 顶部导航 ---------- */
+html body .nav{
+  background:rgba(255,255,255,.86) !important;
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--hair) !important;
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 8px 24px -20px rgba(16,24,40,.28);
+}
+html body .nav b{color:var(--ink) !important;font-weight:800;letter-spacing:.02em}
+html body .nav a{
+  background:rgba(17,24,39,.035) !important;
+  color:var(--ink3) !important;
+  border:1px solid transparent !important;
+  border-radius:999px !important;
+  font-weight:600;
+  transition:background .18s,color .18s,border-color .18s;
+}
+html body .nav a:hover{background:rgba(234,88,12,.08) !important;color:var(--ac) !important}
+html body .nav a.on{
+  background:linear-gradient(165deg,#f97316,#c2410c) !important;
+  color:#fff !important;
+  border-color:transparent !important;
+  box-shadow:0 6px 16px -8px rgba(194,65,12,.65);
+}
+
+/* ---------- 版心 ---------- */
+html body .wrap{max-width:1200px}
+
+/* ---------- Hero ---------- */
+html body .hero{
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(234,88,12,.10), transparent 58%),
+    linear-gradient(180deg,#ffffff 0%,#fbfdfe 100%) !important;
+  border:1px solid var(--hair) !important;
+  box-shadow:var(--shadow-2);
+}
+html body .hero::before{
+  background:
+    radial-gradient(circle at 16% 84%, rgba(234,88,12,.10) 0%, transparent 42%),
+    radial-gradient(circle at 82% 78%, rgba(251,191,36,.12) 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(234,88,12,.08) 0%, transparent 60%) !important;
+}
+html body .hero .kick{
+  color:var(--ac) !important;
+  font-weight:700;
+  letter-spacing:.32em !important;
+  font-size:10.5px !important;
+}
+html body .hero h1{
+  color:var(--ink) !important;
+  font-weight:900 !important;
+  letter-spacing:-.02em !important;
+  font-size:34px !important;
+  line-height:1.28 !important;
+}
+html body .hero h1 .sea{
+  background:linear-gradient(120deg,#c2410c,#ea580c 55%,#0ea5b7);
+  -webkit-background-clip:text;background-clip:text;color:transparent !important;
+}
+html body .hero .sub{color:var(--ink3) !important;line-height:1.9 !important}
+html body .hero .sub span{color:var(--ink4) !important}
+
+/* ---------- 卡片骨架 ---------- */
+html body .card,
+html body .scan-row,
+html body .town-panel,
+html body .proud-panel,
+html body .chartbox,
+html body .kpi,
+html body .metric,
+html body .val-card,
+html body .param-panel,
+html body .val-grid,
+html body .ab-card,
+html body .scen-grid,
+html body .vegcard{
+  background:linear-gradient(165deg,#ffffff 0%,#fcfdfe 100%) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  box-shadow:var(--shadow-1) !important;
+}
+html body .card:hover,
+html body .tcard:hover{
+  box-shadow:var(--shadow-3) !important;
+  transform:translateY(-2px);
+}
+
+/* 强调面板：左侧主色竖条 */
+html body .town-panel,
+html body .proud-panel{
+  position:relative;overflow:hidden;
+}
+html body .town-panel::before,
+html body .proud-panel::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--ac),rgba(234,88,12,.25));
+  border-radius:4px 0 0 4px;
+}
+
+/* ---------- 雷达 ---------- */
+html body .radar circle,
+html body .radar line{stroke:rgba(17,24,39,.16) !important}
+html body .radar .scanline line{stroke:var(--ac) !important}
+html body .radar .scanline circle{fill:var(--ac) !important}
+
+html body .scan-info{color:var(--ink3) !important;line-height:1.8}
+html body .refresh,
+html body .btn,
+html body .rbtn,
+html body .next a{
+  background:linear-gradient(165deg,#f97316,#c2410c) !important;
+  color:#fff !important;
+  border:0 !important;
+  border-radius:999px !important;
+  font-weight:700 !important;
+  box-shadow:0 8px 20px -10px rgba(194,65,12,.7) !important;
+  transition:transform .16s,box-shadow .16s !important;
+}
+html body .refresh:hover,
+html body .btn:hover,
+html body .next a:hover{transform:translateY(-1px);box-shadow:0 12px 26px -12px rgba(194,65,12,.75) !important}
+html body .ghost,
+html body .plain{
+  background:#fff !important;color:var(--ink2) !important;
+  border:1px solid var(--hair-2) !important;box-shadow:none !important;
+}
+
+/* ---------- 面板标题 ---------- */
+html body .town-panel .t,
+html body .proud-panel .t,
+html body .rank-title,
+html body .ruler-title,
+html body .acttitle,
+html body .conclusion{
+  color:var(--ink) !important;font-weight:800 !important;letter-spacing:-.01em;
+}
+html body .town-panel .d,
+html body .proud-panel .d,
+html body .ruler-desc{
+  color:var(--ink3) !important;
+}
+
+/* ---------- 镇街 / 骄傲 按钮 ---------- */
+html body .town-grid button,
+html body .proud-row button{
+  background:var(--ac-soft) !important;
+  border:1px solid var(--ac-line) !important;
+  color:var(--ac) !important;
+  font-weight:700 !important;
+  border-radius:var(--r-sm) !important;
+}
+html body .town-grid button:hover,
+html body .proud-row button:hover{
+  background:rgba(234,88,12,.18) !important;
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px -12px rgba(194,65,12,.7);
+}
+html body .town-out,
+html body .proud-out,
+html body .vote-out{
+  color:var(--ink2) !important;line-height:1.85;
+}
+
+/* ---------- 分类筛选 ---------- */
+html body .cat,
+html body .switch,
+html body .toolbar button{
+  background:#fff !important;
+  color:var(--ink3) !important;
+  border:1px solid var(--hair-2) !important;
+  border-radius:999px !important;
+  font-weight:600 !important;
+}
+html body .cat:hover{color:var(--ac) !important;border-color:var(--ac-line) !important}
+html body .cat.on,
+html body .switch.on,
+html body .toolbar button.on{
+  background:linear-gradient(165deg,#f97316,#c2410c) !important;
+  color:#fff !important;border-color:transparent !important;
+  box-shadow:0 8px 18px -10px rgba(194,65,12,.7) !important;
+}
+
+/* ---------- 话题卡 ---------- */
+html body .topic-grid{gap:14px}
+html body .tcard{
+  background:linear-gradient(165deg,#ffffff,#fbfcfd) !important;
+  border:1px solid var(--hair) !important;
+  box-shadow:var(--shadow-1) !important;
+}
+html body .tcard .meta{color:var(--ink4) !important;font-weight:600}
+html body .tcard .title{color:var(--ink) !important;font-weight:800 !important;line-height:1.5}
+html body .tcard .detail{color:var(--ink2) !important}
+html body .tcard .detail a,
+html body .detail a{color:var(--ac) !important}
+html body .tier{
+  background:var(--ac-soft) !important;color:var(--ac) !important;
+  border:1px solid var(--ac-line) !important;border-radius:999px !important;
+}
+html body .like-btn,
+html body .likeBtn{color:var(--ink3) !important}
+html body .likebar{background:#fff !important;border:1px solid var(--hair) !important;box-shadow:var(--shadow-2) !important}
+html body .likebar button{color:var(--ink2) !important}
+
+/* ---------- 正文文字 ---------- */
+html body .disc,
+html body .note,
+html body .algo-note,
+html body .worldnote{
+  color:var(--ink4) !important;line-height:1.85 !important;
+}
+html body .src,
+html body .src-list,
+html body .met,
+html body .meta{color:var(--ink4) !important}
+html body .quote,
+html body .bigquote{
+  color:var(--ink2) !important;
+  border-left:3px solid var(--ac-line) !important;
+  background:rgba(234,88,12,.05) !important;
+  border-radius:0 var(--r-sm) var(--r-sm) 0 !important;
+}
+
+/* ---------- 数字 ---------- */
+html body .num,
+html body .val,
+html body .kpi b,
+html body .metric b,
+html body .big{
+  color:var(--ink) !important;
+  font-weight:900 !important;
+  letter-spacing:-.02em !important;
+}
+html body .kpi .l,
+html body .kpi .lab,
+html body .metric .l,
+html body .metric .lab{color:var(--ink3) !important}
+
+/* ---------- 步骤 / 路径 ---------- */
+html body .step{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-left:3px solid var(--ac-line) !important;
+  border-radius:var(--r-sm) !important;
+  color:var(--ink2) !important;
+}
+html body .path{
+  color:var(--ink2) !important;
+  border-left:2px dashed var(--hair-2) !important;
+}
+
+/* ---------- 图表容器 ---------- */
+html body .chart,
+html body .chartbox,
+html body .chart-sm{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-md) !important;
+}
+
+/* ---------- 表格 / 列表 ---------- */
+html body table{color:var(--ink2) !important}
+html body th{color:var(--ink3) !important;border-bottom:1px solid var(--hair-2) !important}
+html body td{border-bottom:1px solid var(--hair) !important}
+html body .rank-row{border-bottom:1px solid var(--hair) !important}
+html body .rank-row:hover{background:rgba(234,88,12,.04) !important}
+
+/* ---------- 进度条 / 量表 ---------- */
+html body .bar-bg{background:rgba(17,24,39,.06) !important;border-radius:999px !important}
+html body .bar{background:linear-gradient(90deg,#ea580c,#c2410c) !important;border-radius:999px !important}
+html body .gauge{color:var(--ink3) !important}
+
+/* ---------- 标签 ---------- */
+html body .tag,
+html body .pick-tag,
+html body .blood-tag,
+html body .grade,
+html body .flag{
+  background:rgba(17,24,39,.05) !important;
+  color:var(--ink2) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:999px !important;
+}
+html body .blood-A{color:var(--red) !important;background:rgba(192,57,43,.08) !important;border-color:rgba(192,57,43,.28) !important}
+html body .blood-B{color:var(--gold) !important;background:rgba(180,83,9,.08) !important;border-color:rgba(180,83,9,.28) !important}
+html body .blood-C{color:var(--green) !important;background:rgba(15,118,110,.08) !important;border-color:rgba(15,118,110,.28) !important}
+
+/* ---------- 场景 / 对比 ---------- */
+html body .scene,
+html body .scenes,
+html body .ab-side,
+html body .ab-mid{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-md) !important;
+  color:var(--ink2) !important;
+}
+html body .ab-mid{background:var(--card-2) !important}
+
+/* ---------- 结尾 / 大字 ---------- */
+html body .closing,
+html body .lossline{
+  color:var(--ink) !important;
+}
+html body .closing .big,
+html body .big{
+  background:linear-gradient(120deg,#c2410c,#ea580c);
+  -webkit-background-clip:text;background-clip:text;color:transparent !important;
+}
+
+/* ---------- 内联深色兜底（style 属性里的写死值） ---------- */
+html body [style*="background:#0a0f1a"],
+html body [style*="background:#080b12"],
+html body [style*="background:#0e1523"],
+html body [style*="background:#131c2b"],
+html body [style*="background:#0f172a"],
+html body [style*="background:#1c2739"],
+html body [style*="background:#22304a"],
+html body [style*="background:#0b1426"],
+html body [style*="background:#0a0f18"]{
+  background:#fff !important;
+}
+html body [style*="color:#e6edf3"],
+html body [style*="color:#f8fafc"],
+html body [style*="color:#fff"],
+html body [style*="color:#ffffff"]{color:var(--ink) !important}
+html body [style*="color:#cbd5e1"],
+html body [style*="color:#e2e8f0"]{color:var(--ink2) !important}
+html body [style*="color:#94a3b8"],
+html body [style*="color:#93a4bd"],
+html body [style*="color:#8fa3bf"],
+html body [style*="color:#a8bccd"]{color:var(--ink3) !important}
+html body [style*="color:#5b6b82"],
+html body [style*="color:#64748b"],
+html body [style*="color:#7c8b99"]{color:var(--ink4) !important}
+html body [style*="color:#67e8f9"],
+html body [style*="color:#22d3ee"],
+html body [style*="color:#a5f3fc"],
+html body [style*="color:#7dd3fc"]{color:var(--ac) !important}
+html body [style*="color:#fbbf24"],
+html body [style*="color:#f59e0b"],
+html body [style*="color:#fdba74"]{color:var(--gold) !important}
+html body [style*="color:#f87171"],
+html body [style*="color:#fb923c"],
+html body [style*="color:#f97316"]{color:var(--red) !important}
+html body [style*="border:1px solid #1c2739"],
+html body [style*="border:1px solid #22304a"],
+html body [style*="border-bottom:1px solid #1c2739"]{border-color:var(--hair) !important}
+html body [style*="background:#131c2b"]{background:rgba(17,24,39,.04) !important}
+
+/* ============================================================
+   第二批：页面私有组件
+   ============================================================ */
+/* 各镇页 */
+html body .scan-bar{
+  background:#fff !important;border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;box-shadow:var(--shadow-1) !important;
+  color:var(--ink2) !important;
+}
+html body .town,
+html body .town.pick{
+  background:linear-gradient(165deg,#ffffff,#fbfcfd) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  box-shadow:var(--shadow-1) !important;
+}
+html body .town:hover{box-shadow:var(--shadow-3) !important}
+html body .town.pick{border-color:var(--ac-line) !important}
+html body .town .name,
+html body .town h3,
+html body .town b{color:var(--ink) !important}
+html body .town .sub,
+html body .town .meta,
+html body .town .src,
+html body .town .why{color:var(--ink3) !important}
+html body .town .tag{
+  background:var(--ac-soft) !important;color:var(--ac) !important;
+  border-color:var(--ac-line) !important;border-radius:999px !important;
+}
+html body .town .pick-tag{
+  background:linear-gradient(165deg,#f97316,#c2410c) !important;color:#fff !important;
+  border-radius:999px !important;
+}
+html body .livebar{
+  background:rgba(180,83,9,.06) !important;
+  border:1px solid rgba(180,83,9,.28) !important;
+  color:var(--gold) !important;
+  border-radius:var(--r-md) !important;
+}
+html body .veg-title{color:var(--ac) !important;font-weight:800}
+html body .vegcard .vn{color:var(--ink) !important}
+html body .vegcard .vp{color:var(--ac) !important}
+html body .vegcard .vd{color:var(--ink3) !important}
+html body .disc{background:rgba(17,24,39,.03) !important;border-radius:var(--r-sm) !important}
+
+/* 关系网 */
+html body .stage{
+  background:
+    radial-gradient(70% 60% at 50% 45%, rgba(234,88,12,.10), transparent 70%),
+    linear-gradient(180deg,#ffffff,#fafcfd) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+}
+
+/* 五条路 */
+html body .path,
+html body .path.on{
+  background:linear-gradient(165deg,#ffffff,#fbfcfd) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  box-shadow:var(--shadow-1) !important;
+  color:var(--ink2) !important;
+}
+html body .path.on{border-color:var(--ac-line) !important;box-shadow:0 0 0 3px rgba(234,88,12,.10) !important}
+html body .gap{
+  background:rgba(17,24,39,.035) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  color:var(--ink2) !important;
+}
+
+/* 结语 */
+html body .closing{
+  background:
+    radial-gradient(80% 70% at 50% 0%, rgba(234,88,12,.10), transparent 62%),
+    linear-gradient(180deg,#ffffff,#fbfdfe) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  color:var(--ink) !important;
+}
+html body .closing h1,
+html body .closing h2,
+html body .closing p{color:var(--ink) !important}
+html body details{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-md) !important;
+}
+html body details summary{color:var(--ink) !important;font-weight:700}
+html body .worldnote{
+  background:rgba(234,88,12,.05) !important;
+  border:1px solid var(--ac-line) !important;
+  border-radius:var(--r-sm) !important;
+  color:var(--ink2) !important;
+}
+html body .grid6 .feat,
+html body .feat{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-md) !important;
+  color:var(--ink2) !important;
+}
+
+/* 角色 */
+html body .card svg#svg,
+html body svg#svg{
+  background:
+    radial-gradient(60% 55% at 50% 45%, rgba(234,88,12,.12), transparent 70%),
+    #ffffff !important;
+  border-radius:var(--r-md) !important;
+}
+html body .roles .rc,
+html body .rc{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-md) !important;
+  color:var(--ink2) !important;
+}
+html body .roles .rc.on,
+html body .rc.on{border-color:var(--ac-line) !important;background:rgba(234,88,12,.06) !important}
+html body .worry{
+  background:rgba(192,57,43,.06) !important;
+  border:1px solid rgba(192,57,43,.26) !important;
+  border-radius:var(--r-md) !important;
+  color:var(--ink2) !important;
+}
+
+/* 未来 */
+html body #out .conclusion,
+html body .conclusion{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  color:var(--ink) !important;
+}
+html body .card .note{
+  background:rgba(17,24,39,.03) !important;
+  border-radius:var(--r-sm) !important;
+  color:var(--ink3) !important;
+}
+html body .gauges .gauge,
+html body .gauge{
+  background:rgba(17,24,39,.035) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-sm) !important;
+  color:var(--ink2) !important;
+}
+html body .scen3 .s{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-sm) !important;
+  color:var(--ink2) !important;
+}
+
+/* 被忽略 */
+html body .vote{
+  background:rgba(17,24,39,.03) !important;
+  border-radius:var(--r-sm) !important;
+}
+html body .finding .means{
+  background:rgba(234,88,12,.05) !important;
+  border:1px solid var(--ac-line) !important;
+  border-radius:var(--r-sm) !important;
+  color:var(--ink2) !important;
+}
+
+/* 风洞 */
+html body .real{
+  background:linear-gradient(165deg,#ffffff,#fbfcfd) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  box-shadow:var(--shadow-1) !important;
+  color:var(--ink2) !important;
+}
+html body .bridge{
+  border-radius:var(--r-md) !important;
+}
+html body .bridge.b-orange{
+  background:rgba(180,83,9,.06) !important;
+  border:1px solid rgba(180,83,9,.26) !important;
+  color:var(--ink2) !important;
+}
+html body .lossline{
+  background:rgba(17,24,39,.035) !important;
+  border-radius:var(--r-sm) !important;
+  color:var(--ink2) !important;
+}
+
+/* 报告 */
+html body .cover{
+  background:
+    radial-gradient(80% 70% at 50% 0%, rgba(234,88,12,.12), transparent 62%),
+    linear-gradient(180deg,#ffffff,#fbfdfe) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+}
+html body .cover h1,
+html body .cover h2,
+html body .cover p{color:var(--ink) !important}
+html body .mycon{
+  background:
+    radial-gradient(70% 60% at 50% 0%, rgba(234,88,12,.10), transparent 62%),
+    linear-gradient(180deg,#ffffff,#fbfcfd) !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-lg) !important;
+  color:var(--ink) !important;
+}
+html body .scen-card{
+  background:#fff !important;
+  border:1px solid var(--hair) !important;
+  border-radius:var(--r-md) !important;
+  color:var(--ink2) !important;
+}
+html body .scen-card.g{border-left:3px solid rgba(15,118,110,.5) !important}
+html body .scen-card.r{border-left:3px solid rgba(192,57,43,.5) !important}
+html body .scen-card.y{border-left:3px solid rgba(180,83,9,.5) !important}
+
+/* 镇名（原为白字，浅色下需显式改深） */
+html body .town .head .n{
+  color:var(--ink) !important;
+  font-weight:900 !important;
+  font-size:21px !important;
+  letter-spacing:-.01em !important;
+}
+html body .town .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+html body .town .k{color:var(--ac) !important;font-weight:800}
+
+/* 卡片内标题（原为白字） */
+html body .t,
+html body .path .t,
+html body .finding .t,
+html body .rc .t,
+html body .feat .t{
+  color:var(--ink) !important;font-weight:800 !important;
+}
+html body .p50,
+html body .p50 b,
+html body .p50 strong{color:var(--ink2) !important}
+html body .p50 b{color:var(--ink) !important;font-weight:900 !important}
+
+/* 品牌字 / 特性标题 / 优先标签（原为白字） */
+html body .nav span{color:var(--ink) !important;font-weight:800 !important}
+html body .feat b,
+html body .grid6 .feat b{color:var(--ink) !important;font-weight:800 !important}
+html body .pri{
+  background:rgba(234,88,12,.10) !important;
+  color:var(--ac) !important;
+  border:1px solid var(--ac-line) !important;
+  border-radius:999px !important;
+}
+
+/* 单选按钮：未选中浅底，选中实心 */
+html body .rbtn,
+html body .rbtns button{
+  background:#fff !important;color:var(--ink3) !important;
+  border:1px solid var(--hair-2) !important;box-shadow:none !important;
+  border-radius:999px !important;font-weight:600 !important;
+}
+html body .rbtn:hover{color:var(--ac) !important;border-color:var(--ac-line) !important}
+html body .rbtn.on,
+html body .rbtns button.on{
+  background:linear-gradient(165deg,#f97316,#c2410c) !important;
+  color:#fff !important;border-color:transparent !important;
+  box-shadow:0 8px 18px -10px rgba(194,65,12,.7) !important;
+}
+
+/* 关系网 SVG：文字转深、连线提亮 */
+html body .stage text[fill="#e6edf3"]{fill:var(--ink) !important}
+html body .stage text[fill="#7d8fa5"]{fill:var(--ink3) !important}
+html body .stage text[fill="#fca5a5"]{fill:var(--red) !important}
+html body .stage line{stroke-opacity:0.62 !important}
+html body .stage circle[stroke]{stroke-width:1.6 !important}
+
+/* 角色页 SVG 文字 */
+html body svg#svg text[fill="#e6edf3"],
+html body svg#svg text[fill="#f8fafc"],
+html body svg#svg text[fill="#ffffff"]{fill:var(--ink) !important}
+html body svg#svg text[fill="#7d8fa5"],
+html body svg#svg text[fill="#94a3b8"]{fill:var(--ink3) !important}
+
+/* ---------- 通用浅底文字补丁（深色模板遗留字色） ---------- */
+html body .card > b{color:var(--ink) !important}
+html body .card > b + *,html body .card b + div{color:var(--ink2)}
+html body .mut,html body .cmp .l,html body .met .n,html body .met .a{color:var(--ink3) !important}
+html body .cmp .r.cy{color:var(--gold) !important}
+html body .met .b{color:var(--ac) !important}
+html body .chk{background:#fff !important;border:1px solid var(--hair) !important;border-radius:var(--r-sm) !important}
+html body .chk:hover{border-color:var(--ac-line) !important}
+html body .chk.on{background:var(--ac-soft) !important;border-color:var(--ac-line) !important}
+html body .chk .t{color:var(--ink) !important}
+html body .chk .d{color:var(--ink3) !important}
+html body .chk .g{color:var(--ac) !important}
+html body input[type=checkbox]{accent-color:var(--ac)}
+html body .worry{background:#fef6f6 !important;color:var(--red) !important;border-left-color:var(--red) !important}
+html body svg{background:transparent !important}
+
+/* ---------- 页面私有类补丁（第二批） ---------- */
+html body .topic{background:#fff !important;border:1px solid var(--hair) !important;box-shadow:var(--shadow-1) !important}
+html body .topic .meta,html body .topic .src{color:var(--ink4) !important}
+html body .topic .t{color:var(--ink) !important}
+html body .topic .d{color:var(--ink2) !important}
+html body .stat{background:#fff !important;border:1px solid var(--hair) !important;box-shadow:var(--shadow-1) !important}
+html body .stat *{color:var(--ink) !important}
+html body .guess{background:#fff !important;border:1px solid var(--hair) !important;box-shadow:var(--shadow-1) !important}
+html body .guess *{color:var(--ink2) !important}
+html body .guess input{background:var(--card-2) !important;border:1px solid var(--hair-2) !important;color:var(--ac) !important}
+html body .warn{background:rgba(180,83,9,.06) !important;color:var(--gold) !important;border-left-color:var(--gold) !important}
+html body .bridge{background:#fff !important;border:1px solid var(--hair) !important}
+html body .bridge.b-green{background:rgba(5,150,105,.06) !important;border-color:rgba(5,150,105,.28) !important;color:var(--ink2) !important}
+html body .bridge.b-red{background:rgba(220,38,38,.06) !important;border-color:rgba(220,38,38,.26) !important;color:var(--ink2) !important}
+html body .bridge.b-blue{background:rgba(37,99,235,.06) !important;border-color:rgba(37,99,235,.26) !important;color:var(--ink2) !important}
+html body .bridge.b-orange{background:rgba(180,83,9,.06) !important;border-color:rgba(180,83,9,.26) !important;color:var(--ink2) !important}
+html body .tcard{background:#fff !important;border:1px solid var(--hair) !important;box-shadow:var(--shadow-1) !important}
+html body .tcard > div:nth-child(1){color:var(--ink4) !important}
+html body .tcard > div:nth-child(2){color:var(--ink) !important}
+html body .tcard .detail{color:var(--ink2) !important}
+html body .tcard .detail a{color:var(--ac) !important}
+html body .tcard .likeBtn{color:var(--ink3) !important}
+html body .scan{background:radial-gradient(ellipse at center,var(--ac-soft),transparent 72%),#fff !important;border:1px solid var(--hair) !important}
+html body .wrap > div[style*="linear-gradient(135deg"]{background:#fff !important;border:1px solid var(--hair) !important;box-shadow:var(--shadow-1) !important}
+html body .wrap > div[style*="linear-gradient(135deg"] > div{color:var(--ink3) !important}
+html body .wrap > div[style*="linear-gradient(135deg"] > div:first-child{color:var(--ink) !important;font-weight:800}
+html body .closing > div[style*="background"]{background:var(--card-2) !important;border:1px solid var(--hair) !important;border-left:3px solid var(--ac) !important;color:var(--ink2) !important}
+html body .closing a{background:transparent !important;color:var(--ac) !important;border-color:transparent !important}
+html body .wrap a[style*="background"]{background:#fff !important;border:1px solid var(--hair) !important;color:var(--ink2) !important;box-shadow:var(--shadow-1) !important}
+
+/* ---------- 表格 ---------- */
+html body table{background:#fff !important;border:1px solid var(--hair) !important;border-radius:var(--r-sm) !important;overflow:hidden;box-shadow:var(--shadow-1)}
+html body th{background:var(--card-2) !important;color:var(--ink) !important;border-color:var(--hair) !important;font-weight:700}
+html body td{color:var(--ink2) !important;border-color:var(--hair) !important}
+html body tbody tr:nth-child(even){background:rgba(17,24,39,.015)}
+
+/* ---------- 红绿灯卡片 / 悬浮条 ---------- */
+html body .light.g{background:rgba(22,163,74,.10) !important;border-color:rgba(22,163,74,.28) !important;color:#15803d !important}
+html body .light.y{background:rgba(217,119,6,.10) !important;border-color:rgba(217,119,6,.28) !important;color:#b45309 !important}
+html body .light.r{background:rgba(220,38,38,.10) !important;border-color:rgba(220,38,38,.28) !important;color:#b91c1c !important}
+html body .light.g *,html body .light.y *,html body .light.r *{color:inherit !important}
+html body .light .dot{box-shadow:0 0 0 3px rgba(255,255,255,.9) inset}
+html body div[style*="rgba(15,23,42"]{background:#fff !important;border:1px solid var(--hair) !important;box-shadow:var(--shadow-1) !important}
+html body div[style*="rgba(15,23,42"] *{color:var(--ink2) !important}
+
+/* ---------- 内联浅色字归一化（深色模板遗留） ---------- */
+html body [style*="color:#f0e6d8"]:not([style*="background"]),
+html body [style*="color:#d3dce8"]:not([style*="background"]),
+html body [style*="color:#fbe7d3"]:not([style*="background"]),
+html body [style*="color:#cbd5e1"]:not([style*="background"]),
+html body [style*="color:#e6edf3"]:not([style*="background"]),
+html body [style*="color:#c8d3e0"]:not([style*="background"]),
+html body [style*="color:#cff3f8"]:not([style*="background"]),
+html body [style*="color:#e9d5ff"]:not([style*="background"]),
+html body [style*="color:#d7f0dd"]:not([style*="background"]),
+html body [style*="color:#d8e0ea"]:not([style*="background"]),
+html body [style*="color:#d3f4f8"]:not([style*="background"]),
+html body [style*="color:#f5e6d3"]:not([style*="background"]),
+html body [style*="color:#e2e8f0"]:not([style*="background"]),
+html body [style*="color:#fff"]:not([style*="background"])
+{color:var(--ink) !important}
+html body [style*="color:#a9b6c9"]:not([style*="background"]),
+html body [style*="color:#c2cdda"]:not([style*="background"])
+{color:var(--ink2) !important}
+html body [style*="color:#9aa9bd"]:not([style*="background"]),
+html body [style*="color:#94a3b8"]:not([style*="background"])
+{color:var(--ink3) !important}
+html body [style*="color:#bae6fd"]:not([style*="background"]),
+html body [style*="color:#93a4bd"]:not([style*="background"]),
+html body [style*="color:#34d399"]:not([style*="background"]),
+html body [style*="color:#93c5fd"]:not([style*="background"]),
+html body [style*="color:#bfdbfe"]:not([style*="background"]),
+html body [style*="color:#a5f3fc"]:not([style*="background"]),
+html body [style*="color:#93a4bf"]:not([style*="background"]),
+html body [style*="color:#22d3ee"]:not([style*="background"]),
+html body [style*="color:#7dd3fc"]:not([style*="background"]),
+html body [style*="color:#a78bfa"]:not([style*="background"]),
+html body [style*="color:#38bdf8"]:not([style*="background"]),
+html body [style*="color:#8fa3bf"]:not([style*="background"]),
+html body [style*="color:#67e8f9"]:not([style*="background"]),
+html body [style*="color:#60a5fa"]:not([style*="background"])
+{color:var(--ac) !important}
+html body [style*="color:#4ade80"]:not([style*="background"]),
+html body [style*="color:#a3e635"]:not([style*="background"]),
+html body [style*="color:#bbf7d0"]:not([style*="background"]),
+html body [style*="color:#84cc16"]:not([style*="background"]),
+html body [style*="color:#86efac"]:not([style*="background"])
+{color:var(--green) !important}
+html body [style*="color:#fdba74"]:not([style*="background"]),
+html body [style*="color:#fca5a5"]:not([style*="background"]),
+html body [style*="color:#cbb59a"]:not([style*="background"]),
+html body [style*="color:#fed7aa"]:not([style*="background"]),
+html body [style*="color:#f59e0b"]:not([style*="background"]),
+html body [style*="color:#c0a98f"]:not([style*="background"]),
+html body [style*="color:#fb923c"]:not([style*="background"]),
+html body [style*="color:#f87171"]:not([style*="background"])
+{color:var(--red) !important}
+html body [style*="color:#fde68a"]:not([style*="background"]),
+html body [style*="color:#eab308"]:not([style*="background"]),
+html body [style*="color:#fbbf24"]:not([style*="background"]),
+html body [style*="color:#fcd34d"]:not([style*="background"])
+{color:var(--gold) !important}
+html body [style*="color:#c084fc"]:not([style*="background"])
+{color:var(--violet) !important}
+
+/* ---------- huiyang-simulator 内联背景归一化（自动生成） ---------- */
+html body [style*="background:#34d39922"]{background:rgba(52,211,153,.09) !important;border-color:rgba(52,211,153,.30) !important;color:var(--ink) !important}
+html body [style*="background:#34d39922"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#ea580c22"]{background:rgba(234,88,12,.09) !important;border-color:rgba(234,88,12,.30) !important;color:var(--ink) !important}
+html body [style*="background:#ea580c22"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#f59e0b22"]{background:rgba(245,158,11,.09) !important;border-color:rgba(245,158,11,.30) !important;color:var(--ink) !important}
+html body [style*="background:#f59e0b22"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#f8717122"]{background:rgba(248,113,113,.09) !important;border-color:rgba(248,113,113,.30) !important;color:var(--ink) !important}
+html body [style*="background:#f8717122"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#f9731622"]{background:rgba(249,115,22,.09) !important;border-color:rgba(249,115,22,.30) !important;color:var(--ink) !important}
+html body [style*="background:#f9731622"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#fbbf2422"]{background:rgba(251,191,36,.09) !important;border-color:rgba(251,191,36,.30) !important;color:var(--ink) !important}
+html body [style*="background:#fbbf2422"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#080b12"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#080b12"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#0a0f1a"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#0a0f1a"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#0e1523"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#0e1523"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#0f172a"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#0f172a"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#0f1f18"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#0f1f18"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#131c2b"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#131c2b"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#14532d"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#14532d"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#161207"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#161207"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1a0c0c"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1a0c0c"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1a1015"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1a1015"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1a1206"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1a1206"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1a1208"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1a1208"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1a1808"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1a1808"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1c2739"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1c2739"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1e3a5f"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1e3a5f"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#1e40af"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#1e40af"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#241503"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#241503"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#241a08"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#241a08"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#2a1506"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#2a1506"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#4a1a1a"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#4a1a1a"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#4a3a12"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#4a3a12"] [style*="color:#"]{color:var(--ink2) !important}
+html body [style*="background:#7c2d12"]{background:#fff !important;border-color:var(--hair) !important;color:var(--ink) !important;box-shadow:var(--shadow-1) !important}
+html body [style*="background:#7c2d12"] [style*="color:#"]{color:var(--ink2) !important}
+
+/* 角色页 SVG 文字 */
+html body svg text[fill="#cbd5e1"]{fill:var(--ink3) !important}
+html body svg text[fill="#94a3b8"]{fill:var(--ink3) !important}
+html body svg circle{stroke-width:1.6 !important}
+html body svg line{stroke-opacity:0.62 !important}

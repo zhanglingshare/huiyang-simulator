@@ -28,7 +28,14 @@ h1{font-size:22px;margin-bottom:4px}.sub{color:#8fa3bf;font-size:13px;margin-bot
 .met .n{color:#8fa3bf}.met .a{color:#94a3b8}.met .b{color:#4ade80;font-weight:700}
 svg{width:100%;height:auto;background:radial-gradient(ellipse at 50% 45%,#0a1626,#060910);border-radius:10px}
 .disc{margin-top:16px;font-size:11px;color:#5b6b8b;padding:10px;background:#0a0f1a;border-radius:8px;line-height:1.6}
-</style></head><body>
+</style><link rel="stylesheet" href="ui/premium.css">
+<script>/* premium 样式偶发 503：失败自动重试一次 */
+(function(){var r={};Array.prototype.forEach.call(
+document.querySelectorAll('link[rel="stylesheet"][href*="premium"]'),
+function(l){l.addEventListener("error",function(){if(r[l.href])return;r[l.href]=1;
+var s=document.createElement("link");s.rel="stylesheet";
+s.href=l.href.split("?")[0]+"?retry="+Date.now();document.head.appendChild(s);});});})();</script>
+</head><body>
 <div class="nav"><b>惠阳产业风洞</b>
 <a href="index.html">① 今日话题</a><a href="town.html">各镇吃喝玩乐</a><a href="network.html">② 世界怎么长</a>
 <a href="role.html" class="on">🎭 你在网里</a><a href="who.html">③ 基本面</a><a href="choices.html">④ 五条路</a>
@@ -55,7 +62,7 @@ const NODES=[
 {id:"yl",name:"永湖",x:450,y:200,t:"ind"},{id:"lz",name:"良井",x:550,y:150,t:"agri"},
 {id:"ps",name:"平潭",x:500,y:400,t:"ind"},{id:"at",name:"沙田",x:200,y:450,t:"tour"},
 {id:"xt",name:"新圩",x:150,y:350,t:"ind"},{id:"dz",name:"电子信息",x:300,y:280,t:"ind"},
-{id:"qc",name:"汽车零部件",x:400,y:250,t:"ind"},{id:"cy",name="智能家居",x:350,y:150,t:"ind"},
+{id:"qc",name:"汽车零部件",x:400,y:250,t:"ind"},{id:"cy",name:"智能家居",x:350,y:150,t:"ind"},
 {id:"w1",name:"深圳通勤族",x:120,y:200,t:"people"},{id:"w2",name:"本地居民",x:380,y:400,t:"people"},
 {id:"w3",name:"产业工人",x:280,y:330,t:"people"},{id:"w4",name:"农户",x:550,y:200,t:"people"},
 ];
