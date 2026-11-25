@@ -1,0 +1,98 @@
+{
+  "experiment": "huiyang-radar-online-collection",
+  "generated_at": "2026-11-23 16:54:28",
+  "result": "ok",
+  "params": {
+    "hours": 24,
+    "region": "huiyang",
+    "window_start": "2026-11-22 16:42",
+    "window_end": "2026-11-23 16:42",
+    "keywords": [
+      "惠阳",
+      "秋长",
+      "淡水",
+      "三和",
+      "新圩",
+      "沙田",
+      "镇隆",
+      "永湖",
+      "良井",
+      "平潭",
+      "惠阳站",
+      "惠州机场",
+      "临深"
+    ],
+    "sources": [
+      {
+        "name": "惠阳区政府门户·融媒栏目(zntj)",
+        "status": "ok",
+        "qualified_items": 2,
+        "detail": "列表与正文静态抓取成功，窗口内合格条目 2 条（post_5899613、post_5899599）"
+      },
+      {
+        "name": "惠阳区政府门户·政务要闻(zwyw)",
+        "status": "ok",
+        "qualified_items": 0,
+        "detail": "窗口内稿件与融媒栏目同稿转载，未重复计列"
+      },
+      {
+        "name": "部门动态(jgdt)",
+        "status": "ok",
+        "qualified_items": 0,
+        "detail": "列表最新条目发布于 2026-11-19，窗口内无更新"
+      },
+      {
+        "name": "镇街动态(xzyw)",
+        "status": "ok",
+        "qualified_items": 0,
+        "detail": "最新为 2026-11-22 10:05 沙田镇消防宣传月活动，早于窗口起点 16:42，判定窗口外；其余为 11-20 及更早"
+      },
+      {
+        "name": "视频新闻(spxw)",
+        "status": "ok",
+        "qualified_items": 0,
+        "detail": "2026-11-23 09:23 发布的《2026年11月20日惠阳新闻》为多稿汇编视频，未作为单条话题计列"
+      },
+      {
+        "name": "信息公开(gkmlpt)",
+        "status": "ok",
+        "qualified_items": 0,
+        "detail": "经 /gkmlpt/api/all/{column}?page=1&sid=752035 接口取列表；窗口内最新条目为 2026-11-21 21:58 第七十四批次征地补偿安置方案公告、2026-11-20 区政府领导班子分工通知，均属征地公告/人事分工，按规则排除"
+      },
+      {
+        "name": "今日惠州网·惠阳栏目(newsc_chy)",
+        "status": "ok",
+        "qualified_items": 6,
+        "detail": "6 条均为 2026-11-23 上午发布，逐条 HTTP 200 且正文与标题、关键词匹配"
+      },
+      {
+        "name": "南方+",
+        "status": "ok",
+        "qualified_items": 0,
+        "detail": "检索到的惠阳相关稿件最新发布于 2026-11-19（良井稻香文化活动），窗口内无新稿"
+      },
+      {
+        "name": "惠州日报",
+        "status": "ok",
+        "qualified_items": 0,
+        "detail": "窗口内惠州日报惠阳稿已由今日惠州网惠阳栏目收录计列，不重复计数"
+      }
+    ]
+  },
+  "seed": "huiyang-20261122T1642-20261123T1642",
+  "samples": 8,
+  "duration_sec": 752,
+  "artifacts": [
+    {
+      "path": "hot.json",
+      "sha256": "110b27f7bb3108b08474e41cf2271ef9e479ee6cbbdedb14c9d193662373c7ab",
+      "bytes": 10814
+    },
+    {
+      "path": "life.json",
+      "sha256": "8ff59521d599874e215a0c4d45e527d8c5c3af6333daba05af6eca4840f37301",
+      "bytes": 6921
+    }
+  ],
+  "note": "合格条目 8 条（≥8），主来源门户融媒与今日惠州网均成功；无硬性源失败。保留的两条带市级背景稿件均以惠阳为报道主体：一条为区委宣讲团首场报告会暨全区研讨班开班式套开会议，一条为惠阳代表队在全市赛事中夺冠。已剔除：征地补偿安置/征地公告、幼儿园变更与终止办学公示、道路命名征求意见稿、领导分工、审批公示、招标挂网、纯市级非惠阳本级事件及窗口外旧稿。永湖慈姑保持‘播种季、尚未上市’标注；life.json 镇街 9 个、农品 8 个名称与数量沿用模板未增删。"
+}
